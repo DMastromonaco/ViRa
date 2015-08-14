@@ -13,4 +13,8 @@ public interface iBuildingPlacer
 	void DestroyBuilding();
 
 	void ChangeLoc(Vector3 newLoc);
+
+	//Returns the sounds stored for this building
+	SoundType getPlacementSound();
+	SoundType getRemovalSound();
 }

@@ -8,6 +8,10 @@ public class BuildingUnit : MonoBehaviour, iBuildingPlacer
 	public int ID = -1;
 	public iBuildingReceiver myReceiverTile = null;
 
+	//== PUBLIC inspector vars
+	public SoundType sound_placement;
+	public SoundType sound_removal;
+
 	#region Public Methods
 
 	#endregion
@@ -58,6 +62,16 @@ public class BuildingUnit : MonoBehaviour, iBuildingPlacer
 	public void ChangeLoc(Vector3 newLoc)
 	{
 		this.transform.position = newLoc;
+	}
+
+	public SoundType getPlacementSound()
+	{
+		return sound_placement;
+	}
+
+	public SoundType getRemovalSound()
+	{
+		return sound_removal;
 	}
 
 	#endregion

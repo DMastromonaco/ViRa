@@ -55,7 +55,11 @@ public enum BuildingType
 
 public enum SoundType
 {
+	None = 0,
 	Click = 1,
+
+	Building_remove = 10,
+	Building_place = 11,
 }
 
 

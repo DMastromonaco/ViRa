@@ -171,6 +171,18 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 
 	#region iBuildingReceiver interfaces
 
+	public iBuildingPlacer getPlacedBuilding()
+	{
+		if(hasBuilding())
+		{
+			return _myBuildingUnit;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
 	public void ReceiveBuilding(iBuildingPlacer building)
 	{
 		_myBuildingUnit = building;

@@ -14,6 +14,9 @@ public class Buildings : Singleton<Buildings>
 	//== PUBLIC inspector vars
 	public GameObject GO_Root;
 
+	//== PRIVATE vars
+	private iBuildingReceiver _currentTile = null;	
+
 	//TEMP GOs
 
 	public GameObject tempBuilding = null;
@@ -43,8 +46,6 @@ public class Buildings : Singleton<Buildings>
 		buildingPlacement.isOn = true;
 	}
 
-	private iBuildingReceiver _currentTile = null;
-
 	public void PlaceBuildingOnCurrent()
 	{
 		if(buildingPlacement.currentBuilding != BuildingType.off)
@@ -54,12 +55,24 @@ public class Buildings : Singleton<Buildings>
 				//Handle building removal mode
 				if(buildingPlacement.currentBuilding == BuildingType.remove)
 				{
+					//Store the building and it's removal sound from this tile in temp
+					iBuildingPlacer _tempBuilding = _currentTile.getPlacedBuilding();
+					SoundType _tempSound = SoundType.None;
+					if(_tempBuilding != null)
+					{
+						_tempSound = _tempBuilding.getRemovalSound();
+					}
+
 					//Try to remove building from the current tile building receiver
 					if(_currentTile.RemoveBuilding())
 					{
 						//Building was cleared from receiver
 
-						//TBD : Play removal sound
+						//Play building remove sound, if we have one
+						if(SoundType.None != _tempSound)
+						{
+							Sounds.instance.Play(_tempSound);
+						}
 					}
 					else
 					{
@@ -69,7 +82,6 @@ public class Buildings : Singleton<Buildings>
 				else
 				{
 					//Handle placement of all other buildings
-
 					GameObject tempBuilding = GameObject.Instantiate(GetPrefab_forType(buildingPlacement.currentBuilding));
 
 					//Try to place building on the current tile
@@ -85,6 +97,10 @@ public class Buildings : Singleton<Buildings>
 
 						//Initiate the new building (with it's index, etc)
 						tempBuilding.gameObject.GetComponent<iBuildingPlacer>().Init(allBuildings.Count - 1);
+
+						//Play building place sound
+						Sounds.instance.Play(
+							tempBuilding.gameObject.GetComponent<iBuildingPlacer>().getPlacementSound());
 					}
 					else
 					{

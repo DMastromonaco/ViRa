@@ -3,6 +3,8 @@ using System.Collections;
 
 public interface iBuildingReceiver
 {
+	iBuildingPlacer getPlacedBuilding();
+
 	void ReceiveBuilding(iBuildingPlacer building);
 
 	bool RemoveBuilding();
