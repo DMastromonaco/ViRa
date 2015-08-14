@@ -43,7 +43,7 @@ public class Menu : Singleton<Menu>
 	{
 		menu_Dev.Open();
 	}
-	
+
 	public void DevMenu_off()
 	{
 		menu_Dev.Close();

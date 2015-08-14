@@ -51,22 +51,46 @@ public class Buildings : Singleton<Buildings>
 		{
 			if(_currentTile != null)
 			{
-				GameObject tempBuilding = GameObject.Instantiate(GetPrefab_forType(buildingPlacement.currentBuilding));
-
-				if(tempBuilding.gameObject.GetComponent<iBuildingPlacer>().PlaceBuilding(_currentTile))
+				//Handle building removal mode
+				if(buildingPlacement.currentBuilding == BuildingType.remove)
 				{
-					//building was successfully placed onto the receiver
+					//Try to remove building from the current tile building receiver
+					if(_currentTile.RemoveBuilding())
+					{
+						//Building was cleared from receiver
 
-					//Parent new tile to root
-					tempBuilding.transform.parent = GO_Root.transform;
-
-					//add to internal list
-					allBuildings.Add(tempBuilding);
+						//TBD : Play removal sound
+					}
+					else
+					{
+						//no building to clear
+					}
 				}
 				else
 				{
-					//fail to build, destroy temp
-					Destroy(tempBuilding);
+					//Handle placement of all other buildings
+
+					GameObject tempBuilding = GameObject.Instantiate(GetPrefab_forType(buildingPlacement.currentBuilding));
+
+					//Try to place building on the current tile
+					if(tempBuilding.gameObject.GetComponent<iBuildingPlacer>().PlaceBuilding(_currentTile))
+					{
+						//building was successfully placed onto the receiver
+
+						//Parent new tile to root
+						tempBuilding.transform.parent = GO_Root.transform;
+
+						//add to internal list
+						allBuildings.Add(tempBuilding);
+
+						//Initiate the new building (with it's index, etc)
+						tempBuilding.gameObject.GetComponent<iBuildingPlacer>().Init(allBuildings.Count - 1);
+					}
+					else
+					{
+						//fail to build, destroy temp
+						Destroy(tempBuilding);
+					}
 				}
 			}
 		}
@@ -82,17 +106,50 @@ public class Buildings : Singleton<Buildings>
 		Destroy(tempBuilding);
 	}
 
+	public void SetCurrentHoverTileForBuilding(iBuildingReceiver tile)
+	{
+		//Store this tile as the current tile (has a click down but no click up yet)
+		_currentTile = tile;
+	}
+
 	public void PlaceTempBuilding(iBuildingReceiver tile)
 	{
 		if(tempBuilding == null)
 		{
-			tempBuilding = Instantiate(GetPrefab_forType(buildingPlacement.currentBuilding));
+			//There is no temp building for remove mode
+			if(buildingPlacement.currentBuilding != BuildingType.remove)
+			{
+				tempBuilding = Instantiate(GetPrefab_forType(buildingPlacement.currentBuilding));
+			}
 		}
 
 		if(tempBuilding != null)
 		{
 			tempBuilding.GetComponent<iBuildingPlacer>().ChangeLoc(tile.GetPlacementLocation());
-			_currentTile = tile;
+		}
+
+		//Store this tile as the current tile (has a click down but no click up yet)
+		_currentTile = tile;
+	}
+
+	public void DestroyAndRemoveAllBuildings()
+	{
+		for(int x = 0; x < allBuildings.Count; x++)
+		{
+			if(allBuildings[x] != null)
+			{
+				allBuildings[x].gameObject.GetComponent<iBuildingPlacer>().DestroyBuilding();
+			}
+		}
+
+		allBuildings.Clear();
+	}
+
+	public void RemoveBuildingFromList(int index)
+	{
+		if(allBuildings.Count > index)
+		{
+			allBuildings[index] = null;
 		}
 	}
 

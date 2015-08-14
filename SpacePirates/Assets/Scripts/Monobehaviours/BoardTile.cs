@@ -78,13 +78,27 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 
 		if(BuildingType.off != (BuildingType)Buildings.instance.buildingPlacement.currentBuilding)
 		{
-			//Only if we don't have a building start the placement
-			if(canReceiveBuilding())
+			//Check if we are in removal mode
+			if(BuildingType.remove == (BuildingType)Buildings.instance.buildingPlacement.currentBuilding)
 			{
 				//flag on
 				Buildings.instance.StartPlacement();
 
-				Buildings.instance.PlaceTempBuilding(this as iBuildingReceiver);
+				//Set this tile as the current tile
+				Buildings.instance.SetCurrentHoverTileForBuilding(this as iBuildingReceiver);
+			}
+			else
+			{
+				//Handle regular building placement types
+
+				//Only start temp building placement if we don't have a building
+				if(canReceiveBuilding())
+				{
+					//flag on
+					Buildings.instance.StartPlacement();
+
+					Buildings.instance.PlaceTempBuilding(this as iBuildingReceiver);
+				}
 			}
 		}
 	}
@@ -127,10 +141,21 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 		{
 			if(BuildingType.off != (BuildingType)Buildings.instance.buildingPlacement.currentBuilding)
 			{
-				//Only if we don't have a building display the hover
-				if(canReceiveBuilding())
+				//Check if we are in removal mode
+				if(BuildingType.remove == (BuildingType)Buildings.instance.buildingPlacement.currentBuilding)
 				{
-					Buildings.instance.PlaceTempBuilding(this as iBuildingReceiver);
+					//Removal mode will set this tile as the current
+					Buildings.instance.SetCurrentHoverTileForBuilding(this as iBuildingReceiver);
+				}
+				else
+				{
+					//Regular temp building processing
+
+					//Only if we don't have a building display the hover
+					if(canReceiveBuilding())
+					{
+						Buildings.instance.PlaceTempBuilding(this as iBuildingReceiver);
+					}
 				}
 			}
 		}
@@ -151,6 +176,29 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 		_myBuildingUnit = building;
 	}
 
+	public bool RemoveBuilding()
+	{
+		if(_myBuildingUnit == null)
+		{
+			//There is no building on this tile
+			return false;
+		}
+		else
+		{
+			//Have the building destroy itself and clear local ref
+			_myBuildingUnit.DestroyBuilding();
+
+			_myBuildingUnit = null;
+
+			return true;
+		}
+	}
+
+	public bool hasBuilding()
+	{
+		return (_myBuildingUnit != null);
+	}
+
 	public bool canReceiveBuilding()
 	{
 		return (_myBuildingUnit == null);
@@ -159,6 +207,11 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 	public Vector3 GetPlacementLocation()
 	{
 		return loc_childPlacement.transform.position;
+	}
+
+	public void ClearReceivedBuilding()
+	{
+		_myBuildingUnit = null;
 	}
 
 	#endregion

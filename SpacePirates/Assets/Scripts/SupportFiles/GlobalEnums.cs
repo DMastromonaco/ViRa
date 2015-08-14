@@ -47,6 +47,9 @@ public enum BuildingType
 	house_01 = 11,
 	house_02 = 12,
 	house_03 = 13,
+
+
+	remove = 99,
 }
 
 
