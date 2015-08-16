@@ -7,8 +7,10 @@ public class BuildingUnit : MonoBehaviour, iBuildingPlacer
 	public GameObject GO_building;
 	public int ID = -1;
 	public iBuildingReceiver myReceiverTile = null;
+	public Vector2 placedRowCol = Vector2.zero;
 
 	//== PUBLIC inspector vars
+	public BuildingType myType;
 	public SoundType sound_placement;
 	public SoundType sound_removal;
 
@@ -32,12 +34,30 @@ public class BuildingUnit : MonoBehaviour, iBuildingPlacer
 		return ID;
 	}
 
+	public int getTypeID()
+	{
+		return (int)myType;
+	}
+
+	public Vector2 getLocation()
+	{
+		return placedRowCol;
+	}
+
 	public bool PlaceBuilding(iBuildingReceiver tile)
 	{
+		if(tile == null)
+		{
+			return false;
+		}
+
 		if(tile.canReceiveBuilding())
 		{
-			this.transform.position = tile.GetPlacementLocation();
+			this.transform.position = tile.getPlacementLocation();
 			tile.ReceiveBuilding(this as iBuildingPlacer);
+
+			placedRowCol = tile.getRowCol();
+
 			myReceiverTile = tile;
 			return true;
 		}

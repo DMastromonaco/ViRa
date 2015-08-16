@@ -115,6 +115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GO_building: {fileID: 0}
   ID: -1
+  placedRowCol: {x: 0, y: 0}
+  myType: 11
   sound_placement: 11
   sound_removal: 10
 --- !u!1001 &100100000

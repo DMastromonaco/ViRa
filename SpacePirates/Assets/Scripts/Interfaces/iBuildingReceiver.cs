@@ -13,7 +13,9 @@ public interface iBuildingReceiver
 
 	bool canReceiveBuilding();
 
-	Vector3 GetPlacementLocation();
+	Vector3 getPlacementLocation();
+
+	Vector2 getRowCol();
 
 	void ClearReceivedBuilding();
 }

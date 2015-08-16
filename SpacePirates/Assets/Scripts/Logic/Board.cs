@@ -251,4 +251,23 @@ public class Board : Singleton<Board>
 			boardTiles[j].Erase ();
 		}
 	}
+
+	public iBuildingReceiver getTileAtLoc(Vector2 rowCol)
+	{
+		iBuildingReceiver _tempTile = null;
+
+		//Loop all tiles and find the one with the matching location
+		for(int j = 0; j < boardTiles.Count; j++)
+		{
+			if(((iBuildingReceiver)boardTiles[j]).getRowCol() == rowCol)
+			{
+				//Found the matching rowCol, assign and drop out
+				_tempTile = (iBuildingReceiver)boardTiles[j];
+
+				j = boardTiles.Count + 1;
+			}
+		}
+
+		return _tempTile;
+	}
 }

@@ -62,6 +62,8 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 		FixNeighborLocators(v2_neighborSpacing);
 	}
 
+
+
 	#endregion
 	
 	#region iClickable interfaces
@@ -216,9 +218,14 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 		return (_myBuildingUnit == null);
 	}
 
-	public Vector3 GetPlacementLocation()
+	public Vector3 getPlacementLocation()
 	{
 		return loc_childPlacement.transform.position;
+	}
+
+	public Vector2 getRowCol()
+	{
+		return v2_boardRowCol;
 	}
 
 	public void ClearReceivedBuilding()

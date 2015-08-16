@@ -2374,4 +2374,33 @@
       <y>15</y>
     </rowCol>
   </TileLocations>
+  <Buildings>
+    <typeID>10</typeID>
+    <typeID>10</typeID>
+    <typeID>11</typeID>
+    <typeID>12</typeID>
+    <typeID>13</typeID>
+  </Buildings>
+  <BuildingLocations>
+    <rowCol>
+      <x>23</x>
+      <y>1</y>
+    </rowCol>
+    <rowCol>
+      <x>24</x>
+      <y>1</y>
+    </rowCol>
+    <rowCol>
+      <x>25</x>
+      <y>1</y>
+    </rowCol>
+    <rowCol>
+      <x>25</x>
+      <y>2</y>
+    </rowCol>
+    <rowCol>
+      <x>26</x>
+      <y>2</y>
+    </rowCol>
+  </BuildingLocations>
 </MapLayout>

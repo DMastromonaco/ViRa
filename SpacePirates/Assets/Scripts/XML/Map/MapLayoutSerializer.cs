@@ -22,7 +22,7 @@ public static class MapLayoutSerializer
 		XmlSerializer serializer = new XmlSerializer( typeof( C_MapLayout ) );
 		System.IO.StreamWriter streamWriter = System.IO.File.CreateText( FilePaths.GetResourcePath() + _s_fileName + _s_fileExtension ) ;
 		
-		// scultureData is type of C_MapLayout    
+		// object is type of C_MapLayout    
 		serializer.Serialize( streamWriter, MapLayout );
 		
 		streamWriter.Close() ;

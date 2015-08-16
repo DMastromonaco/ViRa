@@ -22,6 +22,10 @@ public class MapLayoutHandler : MonoBehaviour
 		MapLayout = new C_MapLayout();
 		MapLayout.tileLocations = Board.instance.GetMarkedTiles();
 
+		MapLayout.buildingTypeIDs = Buildings.instance.GetBuildingTypes();
+
+		MapLayout.buildingLocations = Buildings.instance.GetBuildingLocations();
+
 		//Save to file
 		MapLayoutSerializer.SerializeMapLayout(MapLayout);
 	}
@@ -33,6 +37,15 @@ public class MapLayoutHandler : MonoBehaviour
 
 		//Spawn tiles from the layout
 		Board.instance.Spawn (MapLayout.tileLocations);
+	}
+
+	public void SpawnBuildings_fromLayout()
+	{
+		//Load saved XML
+		LoadMapLayout();
+		
+		//Spawn buildings from the layout
+		Buildings.instance.Spawn (MapLayout.buildingTypeIDs, MapLayout.buildingLocations);
 	}
 
 	public void MarkBoard_fromLayout()

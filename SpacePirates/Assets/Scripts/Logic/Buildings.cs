@@ -25,6 +25,8 @@ public class Buildings : Singleton<Buildings>
 
 	public List<GameObject> allBuildings = new List<GameObject>();
 
+	///////////////////////////////////
+
 	// BUILDING PLACMENT
 
 	public void SetPlacementBuilding(int whatBuilding)
@@ -89,7 +91,7 @@ public class Buildings : Singleton<Buildings>
 					{
 						//building was successfully placed onto the receiver
 
-						//Parent new tile to root
+						//Parent new building to root
 						tempBuilding.transform.parent = GO_Root.transform;
 
 						//add to internal list
@@ -141,7 +143,7 @@ public class Buildings : Singleton<Buildings>
 
 		if(tempBuilding != null)
 		{
-			tempBuilding.GetComponent<iBuildingPlacer>().ChangeLoc(tile.GetPlacementLocation());
+			tempBuilding.GetComponent<iBuildingPlacer>().ChangeLoc(tile.getPlacementLocation());
 		}
 
 		//Store this tile as the current tile (has a click down but no click up yet)
@@ -167,6 +169,11 @@ public class Buildings : Singleton<Buildings>
 		{
 			allBuildings[index] = null;
 		}
+	}
+
+	public void AddBuildingToList(GameObject GOBuilding)
+	{
+		allBuildings.Add(GOBuilding);
 	}
 
 	///////////////////////////////////
@@ -198,6 +205,91 @@ public class Buildings : Singleton<Buildings>
 		default:
 			return null;
 			break;
+		}
+	}
+
+	///////////////////////////////////
+
+	/// Building Save Handling
+	
+	public List<int> GetBuildingTypes()
+	{
+		iBuildingPlacer _tempBuilding;
+
+		List<int> typeList = new List<int>();
+
+		//Loop non-null buildings and build list of their types
+		for(int j = 0; j < allBuildings.Count; j++)
+		{
+			if(allBuildings[j] != null)
+			{
+				_tempBuilding = allBuildings[j].GetComponent<iBuildingPlacer>();
+
+				typeList.Add(_tempBuilding.getTypeID());
+			}
+		}
+		
+		return typeList;
+	}
+
+	public List<Vector2> GetBuildingLocations()
+	{
+		iBuildingPlacer _tempBuilding;
+		
+		List<Vector2> locList = new List<Vector2>();
+		
+		//Loop non-null buildings and build list of their locations
+		for(int j = 0; j < allBuildings.Count; j++)
+		{
+			if(allBuildings[j] != null)
+			{
+				_tempBuilding = allBuildings[j].GetComponent<iBuildingPlacer>();
+				
+				locList.Add(_tempBuilding.getLocation());
+			}
+		}
+		
+		return locList;
+	}
+
+	///////////////////////////////////
+
+	/// Building Load Handling
+
+	public void Spawn(List<int> buildingTypes, List<Vector2> buildingLocations)
+	{
+		GameObject tempGO = null;
+		iBuildingReceiver _tempTile;
+
+		//Match counts of types and locations
+		if(buildingTypes.Count == buildingLocations.Count)
+		{
+			for(int j = 0; j < buildingTypes.Count; j++)
+			{
+				//Spawn prefab corresponding to this type
+				tempGO = GameObject.Instantiate(GetPrefab_forType((BuildingType)buildingTypes[j]));
+
+				//Find the tile it should go on
+				_tempTile = Board.instance.getTileAtLoc(buildingLocations[j]);
+
+				//And place it on that tile
+				if(tempGO.GetComponent<iBuildingPlacer>().PlaceBuilding(_tempTile))
+				{
+					//Successfully placed, add to list
+					allBuildings.Add(tempGO);
+
+					//Set ID of building
+					tempGO.GetComponent<iBuildingPlacer>().Init(j);
+
+					//Parent new building to root
+					tempGO.transform.parent = GO_Root.transform;
+				}
+				else
+				{
+					//Failed to place on the tile
+					DestroyImmediate(tempGO);
+				}
+			}
 		}
 	}
 }

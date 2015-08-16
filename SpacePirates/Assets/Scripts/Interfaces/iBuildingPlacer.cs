@@ -7,6 +7,10 @@ public interface iBuildingPlacer
 
 	int getID();
 
+	int getTypeID();
+
+	Vector2 getLocation();
+
 	//returns if the building was placed or not
 	bool PlaceBuilding(iBuildingReceiver receiver);
 
