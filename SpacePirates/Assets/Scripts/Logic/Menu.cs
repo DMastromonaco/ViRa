@@ -6,6 +6,7 @@ public class Menu : Singleton<Menu>
 {
 	public MenuGroup menu_Dev;
 	public MenuGroup menu_Config;
+	public MenuGroup menu_Pause;
 
 	public MenuGroup menu_EdgeInput;
 
@@ -17,7 +18,7 @@ public class Menu : Singleton<Menu>
 	//CONFIG MENU
 	public ConfigHandler configHandler;
 
-	void Awake ()
+	void Start ()
 	{	
 		//=====Default states of menus
 		DevMenu_on();
@@ -27,6 +28,8 @@ public class Menu : Singleton<Menu>
 		Painting_off();
 
 		Resources_off();
+
+		Pause_off();
 
 		//===== Add Key input handlers
 		MessageKit<keyTracker>.addObserver(InputMsg.key_esc, DevMenu_keyPress);
@@ -84,6 +87,24 @@ public class Menu : Singleton<Menu>
 			//Display the config data when the config menu opens
 			configHandler.DisplayConfig();
 		}
+	}
+
+	//////////////////////////////////////////
+	/// Switching - Pause Menu
+	
+	public void Pause_on()
+	{
+		menu_Pause.Open();
+	}
+	
+	public void Pause_off()
+	{
+		menu_Pause.Close();
+	}
+	
+	public void Pause_toggle()
+	{
+		menu_Pause.ToggleMenu();
 	}
 
 	//////////////////////////////////////////

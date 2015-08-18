@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Declare a variable of this type to use as a state machine for the enum BuildingType
 [System.Serializable]
 public class BuildingPlacement
 {
