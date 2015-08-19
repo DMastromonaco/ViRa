@@ -15,6 +15,8 @@ public class Menu : Singleton<Menu>
 
 	public MenuGroup menu_Resources;
 
+	public MenuGroup menu_Sound;
+
 	//CONFIG MENU
 	public ConfigHandler configHandler;
 
@@ -30,6 +32,8 @@ public class Menu : Singleton<Menu>
 		Resources_off();
 
 		Pause_off();
+
+		Sound_off();
 
 		//===== Add Key input handlers
 		MessageKit<keyTracker>.addObserver(InputMsg.key_esc, DevMenu_keyPress);
@@ -182,7 +186,7 @@ public class Menu : Singleton<Menu>
 	}
 
 	//////////////////////////////////////////
-	/// Switching - Building Menu
+	/// Switching - Resources Menu
 	
 	public void Resources_on()
 	{
@@ -204,5 +208,23 @@ public class Menu : Singleton<Menu>
 		{
 			Resources.instance.UpdateDisplay();
 		}
+	}
+
+	//////////////////////////////////////////
+	/// Switching - Pause Menu
+	
+	public void Sound_on()
+	{
+		menu_Sound.Open();
+	}
+	
+	public void Sound_off()
+	{
+		menu_Sound.Close();
+	}
+	
+	public void Sound_toggle()
+	{
+		menu_Sound.ToggleMenu();
 	}
 }
