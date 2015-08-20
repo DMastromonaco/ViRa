@@ -33,7 +33,8 @@ public class Menu : Singleton<Menu>
 
 		Pause_off();
 
-		Sound_off();
+		//Calling direct close to prevent config save
+		menu_Sound.Close();
 
 		//===== Add Key input handlers
 		MessageKit<keyTracker>.addObserver(InputMsg.key_esc, DevMenu_keyPress);
@@ -216,15 +217,29 @@ public class Menu : Singleton<Menu>
 	public void Sound_on()
 	{
 		menu_Sound.Open();
+
+		//Display the sound config data when the config menu opens
+		configHandler.DisplaySoundConfig();
 	}
 	
 	public void Sound_off()
 	{
+		//Save the sound config data when this menu closes
+		configHandler.SaveSoundConfig();
+
 		menu_Sound.Close();
 	}
 	
 	public void Sound_toggle()
 	{
-		menu_Sound.ToggleMenu();
+		//Calling the other functions so that the save and load of sound config XML fires
+		if(menu_Sound.isOpen)
+		{
+			Sound_off();
+		}
+		else
+		{
+			Sound_on();
+		}
 	}
 }
