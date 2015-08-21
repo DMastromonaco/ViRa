@@ -5,7 +5,7 @@ using System.Collections;
 public class TimedMonoBehaviour : MonoBehaviour
 {
 	protected float timeScale = 1f; //Time scale is used to speed or slow down the custom deltaTime
-	protected bool paused = false;
+	public bool paused = false;
 	protected float deltaTime{ get; private set; } // Can be used in sub-classes
 	
 	private float lastUpdate = 0f;
