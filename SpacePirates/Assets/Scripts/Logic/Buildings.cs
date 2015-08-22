@@ -186,22 +186,26 @@ public class Buildings : Singleton<Buildings>
 			return null;
 			break;
 
-		case BuildingType.house_00:
+		case BuildingType.bld_govMansion:
 			return prefabs_Buildings[0];
 			break;
 
-		case BuildingType.house_01:
+		case BuildingType.bld_workerHouse:
 			return prefabs_Buildings[1];
 			break;
 
-		case BuildingType.house_02:
+		case BuildingType.bld_bar:
 			return prefabs_Buildings[2];
 			break;
 
-		case BuildingType.house_03:
+		case BuildingType.bld_security:
 			return prefabs_Buildings[3];
 			break;
-			
+
+		case BuildingType.bld_hotel:
+			return prefabs_Buildings[4];
+			break;
+
 		default:
 			return null;
 			break;

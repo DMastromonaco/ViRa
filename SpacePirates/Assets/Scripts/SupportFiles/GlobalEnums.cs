@@ -43,10 +43,11 @@ public enum BuildingType
 {
 	off = 0,
 
-	house_00 = 10,
-	house_01 = 11,
-	house_02 = 12,
-	house_03 = 13,
+	bld_govMansion = 10,
+	bld_workerHouse = 11,
+	bld_bar = 12,
+	bld_security = 13,
+	bld_hotel = 14,
 
 
 	remove = 99,

@@ -4261,24 +4261,79 @@
     <typeID>11</typeID>
     <typeID>11</typeID>
     <typeID>11</typeID>
+    <typeID>12</typeID>
+    <typeID>12</typeID>
+    <typeID>12</typeID>
+    <typeID>12</typeID>
+    <typeID>12</typeID>
+    <typeID>12</typeID>
+    <typeID>13</typeID>
+    <typeID>13</typeID>
+    <typeID>13</typeID>
+    <typeID>13</typeID>
+    <typeID>13</typeID>
+    <typeID>13</typeID>
+    <typeID>12</typeID>
+    <typeID>13</typeID>
+    <typeID>13</typeID>
+    <typeID>13</typeID>
+    <typeID>13</typeID>
+    <typeID>10</typeID>
+    <typeID>10</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
     <typeID>11</typeID>
     <typeID>11</typeID>
+    <typeID>11</typeID>
+    <typeID>11</typeID>
+    <typeID>11</typeID>
+    <typeID>11</typeID>
+    <typeID>11</typeID>
+    <typeID>11</typeID>
+    <typeID>11</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
     <typeID>12</typeID>
     <typeID>12</typeID>
     <typeID>12</typeID>
     <typeID>12</typeID>
+    <typeID>13</typeID>
+    <typeID>13</typeID>
     <typeID>12</typeID>
     <typeID>12</typeID>
     <typeID>12</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>11</typeID>
+    <typeID>11</typeID>
+    <typeID>11</typeID>
+    <typeID>11</typeID>
     <typeID>13</typeID>
     <typeID>13</typeID>
-    <typeID>13</typeID>
-    <typeID>13</typeID>
-    <typeID>13</typeID>
-    <typeID>13</typeID>
-    <typeID>13</typeID>
-    <typeID>13</typeID>
-    <typeID>13</typeID>
+    <typeID>11</typeID>
+    <typeID>11</typeID>
   </Buildings>
   <BuildingLocations>
     <rowCol>
@@ -4430,19 +4485,11 @@
       <y>11</y>
     </rowCol>
     <rowCol>
-      <x>17</x>
-      <y>11</y>
-    </rowCol>
-    <rowCol>
       <x>18</x>
       <y>13</y>
     </rowCol>
     <rowCol>
       <x>17</x>
-      <y>12</y>
-    </rowCol>
-    <rowCol>
-      <x>19</x>
       <y>12</y>
     </rowCol>
     <rowCol>
@@ -4479,10 +4526,6 @@
     </rowCol>
     <rowCol>
       <x>21</x>
-      <y>13</y>
-    </rowCol>
-    <rowCol>
-      <x>21</x>
       <y>14</y>
     </rowCol>
     <rowCol>
@@ -4490,15 +4533,7 @@
       <y>15</y>
     </rowCol>
     <rowCol>
-      <x>19</x>
-      <y>15</y>
-    </rowCol>
-    <rowCol>
       <x>17</x>
-      <y>15</y>
-    </rowCol>
-    <rowCol>
-      <x>18</x>
       <y>15</y>
     </rowCol>
     <rowCol>
@@ -4506,20 +4541,260 @@
       <y>10</y>
     </rowCol>
     <rowCol>
-      <x>17</x>
-      <y>10</y>
-    </rowCol>
-    <rowCol>
       <x>21</x>
       <y>11</y>
     </rowCol>
     <rowCol>
+      <x>21</x>
+      <y>15</y>
+    </rowCol>
+    <rowCol>
+      <x>16</x>
+      <y>15</y>
+    </rowCol>
+    <rowCol>
+      <x>16</x>
+      <y>14</y>
+    </rowCol>
+    <rowCol>
+      <x>21</x>
+      <y>9</y>
+    </rowCol>
+    <rowCol>
+      <x>21</x>
+      <y>13</y>
+    </rowCol>
+    <rowCol>
       <x>16</x>
       <y>11</y>
     </rowCol>
     <rowCol>
       <x>16</x>
+      <y>13</y>
+    </rowCol>
+    <rowCol>
+      <x>17</x>
+      <y>10</y>
+    </rowCol>
+    <rowCol>
+      <x>22</x>
+      <y>16</y>
+    </rowCol>
+    <rowCol>
+      <x>20</x>
+      <y>8</y>
+    </rowCol>
+    <rowCol>
+      <x>20</x>
+      <y>9</y>
+    </rowCol>
+    <rowCol>
+      <x>19</x>
+      <y>9</y>
+    </rowCol>
+    <rowCol>
+      <x>18</x>
+      <y>9</y>
+    </rowCol>
+    <rowCol>
+      <x>17</x>
+      <y>9</y>
+    </rowCol>
+    <rowCol>
+      <x>21</x>
+      <y>10</y>
+    </rowCol>
+    <rowCol>
+      <x>16</x>
+      <y>10</y>
+    </rowCol>
+    <rowCol>
+      <x>16</x>
       <y>12</y>
+    </rowCol>
+    <rowCol>
+      <x>17</x>
+      <y>11</y>
+    </rowCol>
+    <rowCol>
+      <x>19</x>
+      <y>12</y>
+    </rowCol>
+    <rowCol>
+      <x>19</x>
+      <y>15</y>
+    </rowCol>
+    <rowCol>
+      <x>18</x>
+      <y>15</y>
+    </rowCol>
+    <rowCol>
+      <x>17</x>
+      <y>20</y>
+    </rowCol>
+    <rowCol>
+      <x>17</x>
+      <y>21</y>
+    </rowCol>
+    <rowCol>
+      <x>16</x>
+      <y>21</y>
+    </rowCol>
+    <rowCol>
+      <x>15</x>
+      <y>21</y>
+    </rowCol>
+    <rowCol>
+      <x>15</x>
+      <y>20</y>
+    </rowCol>
+    <rowCol>
+      <x>16</x>
+      <y>20</y>
+    </rowCol>
+    <rowCol>
+      <x>19</x>
+      <y>8</y>
+    </rowCol>
+    <rowCol>
+      <x>18</x>
+      <y>8</y>
+    </rowCol>
+    <rowCol>
+      <x>22</x>
+      <y>9</y>
+    </rowCol>
+    <rowCol>
+      <x>22</x>
+      <y>10</y>
+    </rowCol>
+    <rowCol>
+      <x>22</x>
+      <y>8</y>
+    </rowCol>
+    <rowCol>
+      <x>23</x>
+      <y>8</y>
+    </rowCol>
+    <rowCol>
+      <x>23</x>
+      <y>9</y>
+    </rowCol>
+    <rowCol>
+      <x>23</x>
+      <y>10</y>
+    </rowCol>
+    <rowCol>
+      <x>22</x>
+      <y>11</y>
+    </rowCol>
+    <rowCol>
+      <x>23</x>
+      <y>12</y>
+    </rowCol>
+    <rowCol>
+      <x>22</x>
+      <y>12</y>
+    </rowCol>
+    <rowCol>
+      <x>26</x>
+      <y>7</y>
+    </rowCol>
+    <rowCol>
+      <x>23</x>
+      <y>13</y>
+    </rowCol>
+    <rowCol>
+      <x>22</x>
+      <y>13</y>
+    </rowCol>
+    <rowCol>
+      <x>26</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>24</x>
+      <y>7</y>
+    </rowCol>
+    <rowCol>
+      <x>24</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>25</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>25</x>
+      <y>7</y>
+    </rowCol>
+    <rowCol>
+      <x>23</x>
+      <y>7</y>
+    </rowCol>
+    <rowCol>
+      <x>22</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>21</x>
+      <y>7</y>
+    </rowCol>
+    <rowCol>
+      <x>21</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>20</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>20</x>
+      <y>7</y>
+    </rowCol>
+    <rowCol>
+      <x>21</x>
+      <y>5</y>
+    </rowCol>
+    <rowCol>
+      <x>19</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>19</x>
+      <y>7</y>
+    </rowCol>
+    <rowCol>
+      <x>18</x>
+      <y>7</y>
+    </rowCol>
+    <rowCol>
+      <x>19</x>
+      <y>5</y>
+    </rowCol>
+    <rowCol>
+      <x>20</x>
+      <y>5</y>
+    </rowCol>
+    <rowCol>
+      <x>16</x>
+      <y>9</y>
+    </rowCol>
+    <rowCol>
+      <x>24</x>
+      <y>8</y>
+    </rowCol>
+    <rowCol>
+      <x>24</x>
+      <y>9</y>
+    </rowCol>
+    <rowCol>
+      <x>25</x>
+      <y>8</y>
+    </rowCol>
+    <rowCol>
+      <x>25</x>
+      <y>9</y>
     </rowCol>
   </BuildingLocations>
 </MapLayout>
