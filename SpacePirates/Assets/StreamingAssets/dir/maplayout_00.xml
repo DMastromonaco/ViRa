@@ -2380,6 +2380,7 @@
     <typeID>11</typeID>
     <typeID>12</typeID>
     <typeID>13</typeID>
+    <typeID>14</typeID>
   </Buildings>
   <BuildingLocations>
     <rowCol>
@@ -2401,6 +2402,10 @@
     <rowCol>
       <x>26</x>
       <y>2</y>
+    </rowCol>
+    <rowCol>
+      <x>26</x>
+      <y>3</y>
     </rowCol>
   </BuildingLocations>
 </MapLayout>

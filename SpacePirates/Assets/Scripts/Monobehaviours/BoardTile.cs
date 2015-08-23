@@ -161,6 +161,11 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 				}
 			}
 		}
+
+		if(Buildings.instance.buildInGame.isOn)
+		{
+			//TBD : Add hover display for In-Game building placement (ghost building)
+		}
 	}
 	
 	public void HoverEnd(inputTracker input)

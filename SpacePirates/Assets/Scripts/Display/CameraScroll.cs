@@ -35,30 +35,33 @@ public class CameraScroll : MonoBehaviour
 
 	public void Scroll_keyPress(keyTracker kt)
 	{
-		if(kt.value_keyAxis < 0.0f)
+		if(kt.is_KeyDown)
 		{
-			direction = -1.0f;
-		}
-		else
-		{
-			if(kt.value_keyAxis > 0.0f)
+			if(kt.value_keyAxis < 0.0f)
 			{
-				direction = 1.0f;
+				direction = -1.0f;
 			}
 			else
 			{
-				direction = 0.0f;
+				if(kt.value_keyAxis > 0.0f)
+				{
+					direction = 1.0f;
+				}
+				else
+				{
+					direction = 0.0f;
+				}
 			}
+
+			curVel += kt.value_keyAxis + (direction * minVel);
+			//Multiply by the scroll speed scroll bar speed multiplier
+			curVel *= ConfigHandler.instance.ConfigData.m_zoomSpeed;
+
+			//clamp to max velocity
+			curVel = (Mathf.Min(Mathf.Abs(curVel), maxVel)) * direction;
+
+			time_remaining = time_totalscrolltime;
 		}
-
-		curVel += kt.value_keyAxis + (direction * minVel);
-		//Multiply by the scroll speed scroll bar speed multiplier
-		curVel *= ConfigHandler.instance.ConfigData.m_zoomSpeed;
-
-		//clamp to max velocity
-		curVel = (Mathf.Min(Mathf.Abs(curVel), maxVel)) * direction;
-
-		time_remaining = time_totalscrolltime;
 	}
 
 	public void Update()

@@ -6,12 +6,15 @@ using System.Collections;
 public class BuildingPlacement
 {
 	public bool isOn = false;
+
+	public bool keepOn = false;
 	
 	public BuildingType currentBuilding = BuildingType.off;
 
 	public BuildingPlacement()
 	{
 		isOn = false;
+		keepOn = false;
 		currentBuilding = BuildingType.off;
 	}
 }

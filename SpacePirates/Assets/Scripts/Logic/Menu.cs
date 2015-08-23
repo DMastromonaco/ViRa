@@ -17,24 +17,33 @@ public class Menu : Singleton<Menu>
 
 	public MenuGroup menu_Sound;
 
+	//IN GAME MENUS
+	public MenuGroup menu_Build_InGame;
+
 	//CONFIG MENU
 	public ConfigHandler configHandler;
 
 	void Start ()
 	{	
-		//=====Default states of menus
+		//===== Default states of menus
 		DevMenu_on();
 
 		Config_off();
 
 		Painting_off();
 
+		Building_off();
+
 		Resources_off();
 
 		Pause_off();
 
-		//Calling direct close to prevent config save
+		//Calling direct close to prevent config XML save
 		menu_Sound.Close();
+
+		//===== IN GAME MENUS - Default states
+		Building_InGame_off();
+
 
 		//===== Add Key input handlers
 		MessageKit<keyTracker>.addObserver(InputMsg.key_esc, DevMenu_keyPress);
@@ -159,7 +168,7 @@ public class Menu : Singleton<Menu>
 	}
 
 	//////////////////////////////////////////
-	/// Switching - Building Menu
+	/// Switching - DEV - Building Menu
 	
 	public void Building_on()
 	{
@@ -241,5 +250,23 @@ public class Menu : Singleton<Menu>
 		{
 			Sound_on();
 		}
+	}
+
+	//////////////////////////////////////////
+	/// Switching - Building Menu - IN GAME
+	
+	public void Building_InGame_on()
+	{
+		menu_Build_InGame.Open();
+	}
+	
+	public void Building_InGame_off()
+	{
+		menu_Build_InGame.Close();
+	}
+	
+	public void Building_InGame_toggle()
+	{
+		menu_Build_InGame.ToggleMenu();
 	}
 }

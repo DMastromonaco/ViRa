@@ -22,4 +22,29 @@ public class Resources : Singleton<Resources>
 						 playerRes.m_money.ToString("F0") +
 						 _s_money_suffix;
 	}
+
+	public bool CanAfford(int cost)
+	{
+		return (int)Resources.instance.playerRes.m_money >= cost;
+	}
+
+	public bool subMoney(int money)
+	{
+		if((int)Resources.instance.playerRes.m_money < money)
+		{
+			return false;
+		}
+		else
+		{
+			Resources.instance.playerRes.m_money -= (float)money;
+			UpdateDisplay();
+			return true;
+		}
+	}
+
+	public void addMoney(int money)
+	{
+		Resources.instance.playerRes.m_money += (float)money;
+		UpdateDisplay();
+	}
 }

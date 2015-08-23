@@ -2,11 +2,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Prime31.MessageKit;
 
 public class Buildings : Singleton<Buildings>
 {
-	//STATE
+	//STATE - Dev Buildings
 	public BuildingPlacement buildingPlacement = new BuildingPlacement();
+
+	//STATE - In Game Building placement
+	public BuildingPlacement buildInGame = new BuildingPlacement();
 
 	//Prefabs
 	public List<GameObject> prefabs_Buildings = new List<GameObject>();
@@ -15,19 +19,28 @@ public class Buildings : Singleton<Buildings>
 	public GameObject GO_Root;
 
 	//== PRIVATE vars
-	private iBuildingReceiver _currentTile = null;	
+	private iBuildingReceiver _currentTile = null;
+
+	//To track if the shift key is held down or not
+	private keyTracker kt_Shift = new keyTracker("Shift");
 
 	//TEMP GOs
-
 	public GameObject tempBuilding = null;
 
 	//SPAWNED BUILDINGS
-
 	public List<GameObject> allBuildings = new List<GameObject>();
 
 	///////////////////////////////////
 
-	// BUILDING PLACMENT
+	void Start ()
+	{			
+		//===== Add Key input handlers
+		MessageKit<keyTracker>.addObserver(InputMsg.key_shift, ShiftKey_keyPress);
+	}
+
+	///////////////////////////////////
+
+	// BUILDING PLACMENT - Dev
 
 	public void SetPlacementBuilding(int whatBuilding)
 	{
@@ -177,6 +190,37 @@ public class Buildings : Singleton<Buildings>
 	}
 
 	///////////////////////////////////
+	
+	// BUILDING PLACMENT - In Game
+
+	public void BeginBuildingPurchase(int whatBuilding)
+	{
+		//Only check purchase of valid BuildingType enums
+		if(Enum.IsDefined(typeof(BuildingType), whatBuilding))
+		{
+			BuildingType buildType = (BuildingType)whatBuilding;
+			int buildCost = BuildingCosts.GetCost(buildType);
+
+			//Check if player can afford to begin purchase of this building
+			if(Resources.instance.CanAfford(buildCost))
+			{
+				//CAN afford building
+
+				//TBD : Change this to ghost building placement mode, using buildInGame state
+				Debug.LogError("can purchase");
+				Resources.instance.subMoney(buildCost);
+			}
+			else
+			{
+				//CANNOT afford building
+
+				//TBD : Play cannot afford sound
+				Debug.LogError("nope");
+			}
+		}
+	}
+
+	///////////////////////////////////
 
 	public GameObject GetPrefab_forType(BuildingType whatBuilding)
 	{
@@ -294,6 +338,30 @@ public class Buildings : Singleton<Buildings>
 					DestroyImmediate(tempGO);
 				}
 			}
+		}
+	}
+
+	///////////////////////////////////
+
+	/// Key Input tracking - checks if the shift key is held down
+
+	public void ShiftKey_keyPress(keyTracker kt)
+	{
+		if(kt.is_KeyDown)
+		{
+			//TBD : remove debugging
+			Debug.LogError("shift");
+			           
+			buildInGame.keepOn = true;
+		}
+		else
+		{
+			//Key has been released
+
+			//TBD : remove debugging
+			Debug.LogError("off");
+
+			buildInGame.keepOn = false;
 		}
 	}
 }

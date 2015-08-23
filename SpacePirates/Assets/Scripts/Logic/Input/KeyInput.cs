@@ -9,97 +9,60 @@ public class KeyInput : MonoBehaviour
 	//========= Keyboard Input =========//
 	//==================================//
 
+	// The KeyTracker names MUST match the names assigned in the Unity InputManager
 	public keyTracker kt_esc = new keyTracker("Esc", InputMsg.key_esc);
 	public keyTracker kt_paint = new keyTracker("Paint", InputMsg.key_paint);
 	public keyTracker kt_build = new keyTracker("Build", InputMsg.key_build);
-	public keyTracker kt_scroll = new keyTracker("Scroll", InputMsg.key_scroll);
+	public keyTracker kt_scroll = new keyTracker("Mouse ScrollWheel", InputMsg.key_scroll);
 
 	public keyTracker kt_hori = new keyTracker("Horizontal", InputMsg.key_horizontal);
 	public keyTracker kt_vert = new keyTracker("Vertical", InputMsg.key_vertical);
 
+	public keyTracker kt_shift = new keyTracker("Shift", InputMsg.key_shift);
+
 	private List<keyTracker> allKeys = new List<keyTracker>();
+
+	//Loop var
+	int x = 0;
 
 	void Start()
 	{
+		//Add all keys to the list so we can loop them
 		allKeys.Add(kt_esc);
 		allKeys.Add(kt_paint);
 		allKeys.Add(kt_build);
 		allKeys.Add(kt_scroll);
 		allKeys.Add(kt_hori);
 		allKeys.Add(kt_vert);
+		allKeys.Add(kt_shift);
 	}
 
 	//Input gathered in update so nothing is missed
 	void Update()
 	{
-		//esc key
-
-		if(Input.GetAxis("Esc") > 0.0f)
+		//Loop all keys and check if they have a value, store value and flag for processing
+		for(x = 0; x < allKeys.Count; x++)
 		{
-			kt_esc.value_keyAxis = Input.GetAxis("Esc");
-			kt_esc.do_process = true;
-		}
-
-
-		if(Input.GetAxis("Paint") > 0.0f)
-		{
-			kt_paint.value_keyAxis = Input.GetAxis("Paint");
-			kt_paint.do_process = true;
-		}
-
-
-		if(Input.GetAxis("Build") > 0.0f)
-		{
-			kt_build.value_keyAxis = Input.GetAxis("Build");
-			kt_build.do_process = true;
-		}
-
-		if(Input.GetAxis("Mouse ScrollWheel") != 0.0f)
-		{
-			kt_scroll.value_keyAxis = Input.GetAxis("Mouse ScrollWheel");
-			kt_scroll.do_process = true;
-		}
-
-
-
-		if(Input.GetAxis("Horizontal") != 0.0f)
-		{
-			kt_hori.value_keyAxis = Input.GetAxis("Horizontal");
-			kt_hori.do_process = true;
-		}
-		
-
-		if(Input.GetAxis("Vertical") != 0.0f)
-		{
-			kt_vert.value_keyAxis = Input.GetAxis("Vertical");
-			kt_vert.do_process = true;
+			if(Input.GetAxis(allKeys[x].s_KeyName) != 0.0f)
+			{
+				allKeys[x].value_keyAxis = Input.GetAxis(allKeys[x].s_KeyName);
+				allKeys[x].do_process = true;
+			}
 		}
 	}
 
 	void CheckKeyReleases()
 	{
-		if(!(Input.GetAxis("Esc") > 0.0f))
-		{kt_esc.ReleasePress();
-		}
-
-		if(!(Input.GetAxis("Paint") > 0.0f))
-		{kt_paint.ReleasePress();
-		}
-
-		if(!(Input.GetAxis("Build") > 0.0f))
-		{kt_build.ReleasePress();
-		}
-
-		if(Input.GetAxis("Mouse ScrollWheel") == 0.0f)
-		{kt_scroll.ReleasePress();
-		}
-
-		if(Input.GetAxis("Horizontal") == 0.0f)
-		{kt_hori.ReleasePress();
-		}
-
-		if(Input.GetAxis("Vertical") == 0.0f)
-		{kt_vert.ReleasePress();
+		//Loop all keys and check if they are zero'd, release press if they were pressed
+		for(x = 0; x < allKeys.Count; x++)
+		{
+			if(Input.GetAxis(allKeys[x].s_KeyName) == 0.0f)
+			{
+				if(allKeys[x].is_KeyDown)
+				{
+					allKeys[x].ReleasePress();
+				}
+			}
 		}
 	}
 
@@ -123,8 +86,8 @@ public class KeyInput : MonoBehaviour
 	//Input processing done in fixed update so everything fires
 	void FixedUpdate()
 	{
-
-		for(int x = 0; x < allKeys.Count; x++)
+		//Loop all keys and check which were flagged for processing
+		for(x = 0; x < allKeys.Count; x++)
 		{
 			if(allKeys[x].do_process)
 			{
@@ -207,8 +170,25 @@ public class keyTracker
 	{
 		_is_KeyDown = false;
 		_is_FirstFrame = false;
+		_value_keyAxis = 0f;
+
+		//Send 1 final message when key is released
+		MessageKit<keyTracker>.post( _keyMsg, this );
+
+		_dura_KeyPress = 0f;
+	}
+
+	public keyTracker(string newKeyName)
+	{
+		self = this;
+		
+		//Initialize everything
+		_do_process = false;
+		_is_KeyDown = false;
+		_is_FirstFrame = false;
 		_dura_KeyPress = 0f;
 		_value_keyAxis = 0f;
+		_s_KeyName = newKeyName;
 	}
 
 	public keyTracker(string newKeyName, int newMsg)

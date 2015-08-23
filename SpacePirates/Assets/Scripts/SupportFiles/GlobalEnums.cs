@@ -82,4 +82,6 @@ public class InputMsg
 
 	public const int key_horizontal = 4;
 	public const int key_vertical = 5;
+
+	public const int key_shift = 6;
 }

@@ -37,30 +37,33 @@ public class CameraPan_vert : MonoBehaviour
 
 	public void keyPress(keyTracker kt)
 	{
-		if(kt.value_keyAxis < 0.0f)
+		if(kt.is_KeyDown)
 		{
-			f_bearing = -1.0f;
-		}
-		else
-		{
-			if(kt.value_keyAxis > 0.0f)
+			if(kt.value_keyAxis < 0.0f)
 			{
-				f_bearing = 1.0f;
+				f_bearing = -1.0f;
 			}
 			else
 			{
-				f_bearing = 0.0f;
+				if(kt.value_keyAxis > 0.0f)
+				{
+					f_bearing = 1.0f;
+				}
+				else
+				{
+					f_bearing = 0.0f;
+				}
 			}
+
+			curVel += kt.value_keyAxis + (f_bearing * minVel);
+			//Multiply by the scroll speed scroll bar speed multiplier
+			curVel *= ConfigHandler.instance.ConfigData.m_panSpeed_FB;
+
+			//clamp to max velocity
+			curVel = (Mathf.Min(Mathf.Abs(curVel), maxVel)) * f_bearing;
+
+			time_remaining = time_totalscrolltime;
 		}
-
-		curVel += kt.value_keyAxis + (f_bearing * minVel);
-		//Multiply by the scroll speed scroll bar speed multiplier
-		curVel *= ConfigHandler.instance.ConfigData.m_panSpeed_FB;
-
-		//clamp to max velocity
-		curVel = (Mathf.Min(Mathf.Abs(curVel), maxVel)) * f_bearing;
-
-		time_remaining = time_totalscrolltime;
 	}
 
 	public void Update()
