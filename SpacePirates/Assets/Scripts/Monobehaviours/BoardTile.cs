@@ -125,6 +125,16 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 			Buildings.instance.StopPlacement();
 		}
 	}
+
+	public void RightClickStart(inputTracker input)
+	{
+		Debug.LogError("+++ Right click start : " + v2_boardRowCol);
+	}
+
+	public void RightClickEnd(inputTracker input)
+	{
+		Debug.LogError("--- Right click  end  : " + v2_boardRowCol);
+	}
 	
 	public void HoverStart(inputTracker input)
 	{

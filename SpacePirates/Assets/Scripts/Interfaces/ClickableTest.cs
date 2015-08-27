@@ -11,6 +11,15 @@ public class ClickableTest : MonoBehaviour, iClickable
 	{
 		Debug.LogError("ClickEnd");
 	}
+
+	public void RightClickStart(inputTracker input)
+	{
+		Debug.LogError("RightClickStart");
+	}
+	public void RightClickEnd(inputTracker input)
+	{
+		Debug.LogError("RightClickEnd");
+	}
 	
 	public void HoverStart(inputTracker input)
 	{

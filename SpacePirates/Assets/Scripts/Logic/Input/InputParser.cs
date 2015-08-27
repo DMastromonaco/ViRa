@@ -217,7 +217,6 @@ public class InputParser : MonoBehaviour
 	/// </summary>
 	void Update ()
 	{		
-		//Debug.LogWarning("UPDATE !");
 		//If there are no layers to be raycast, we can skip everything else for Update(), as there is no input to gather
 		if(LayersForInput != _layerSet_Nothing)
 		{

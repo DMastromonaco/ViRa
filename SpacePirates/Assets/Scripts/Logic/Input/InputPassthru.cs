@@ -27,6 +27,16 @@ public class InputPassthru : MonoBehaviour
 		target.ClickEnd(input);
 	}
 
+	public void RightClickStart(inputTracker input)
+	{
+		target.RightClickStart(input);
+	}
+	
+	public void RightClickEnd(inputTracker input)
+	{
+		target.RightClickEnd(input);
+	}
+
 	public void HoverStart(inputTracker input)
 	{
 		target.HoverStart(input);
