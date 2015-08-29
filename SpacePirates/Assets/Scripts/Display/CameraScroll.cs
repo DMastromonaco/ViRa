@@ -25,7 +25,7 @@ public class CameraScroll : MonoBehaviour
 
 	void Awake ()
 	{	
-		MessageKit<keyTracker>.addObserver(InputMsg.key_scroll, Scroll_keyPress);
+		MessageKit<keyTracker>.addObserver((int)InputMsg.key_scroll, Scroll_keyPress);
 
 		camTrans = myCam.GetComponent<Transform>();
 

@@ -23,7 +23,7 @@ public class CameraPan_vert : MonoBehaviour
 	private float time_remaining = 0.0f;
 	private float time_totalscrolltime = 0.15f;
 
-	private int myMsgType = InputMsg.key_vertical;
+	private int myMsgType = (int)InputMsg.key_vertical;
 
 	void Awake ()
 	{	

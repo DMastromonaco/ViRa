@@ -10,15 +10,20 @@ public class KeyInput : MonoBehaviour
 	//==================================//
 
 	// The KeyTracker names MUST match the names assigned in the Unity InputManager
-	public keyTracker kt_esc = new keyTracker("Esc", InputMsg.key_esc);
-	public keyTracker kt_paint = new keyTracker("Paint", InputMsg.key_paint);
-	public keyTracker kt_build = new keyTracker("Build", InputMsg.key_build);
-	public keyTracker kt_scroll = new keyTracker("Mouse ScrollWheel", InputMsg.key_scroll);
+	public keyTracker kt_esc = new keyTracker("Esc", (int)InputMsg.key_esc);
+	public keyTracker kt_paint = new keyTracker("Paint", (int)InputMsg.key_paint);
+	public keyTracker kt_build = new keyTracker("Build", (int)InputMsg.key_build);
+	public keyTracker kt_scroll = new keyTracker("Mouse ScrollWheel", (int)InputMsg.key_scroll);
 
-	public keyTracker kt_hori = new keyTracker("Horizontal", InputMsg.key_horizontal);
-	public keyTracker kt_vert = new keyTracker("Vertical", InputMsg.key_vertical);
+	public keyTracker kt_hori = new keyTracker("Horizontal", (int)InputMsg.key_horizontal);
+	public keyTracker kt_vert = new keyTracker("Vertical", (int)InputMsg.key_vertical);
 
-	public keyTracker kt_shift = new keyTracker("Shift", InputMsg.key_shift);
+	public keyTracker kt_shift = new keyTracker("Shift", (int)InputMsg.key_shift);
+
+	public keyTracker kt_num_01 = new keyTracker("num_01", (int)InputMsg.key_num_01);
+	public keyTracker kt_num_02 = new keyTracker("num_02", (int)InputMsg.key_num_02);
+	public keyTracker kt_num_03 = new keyTracker("num_03", (int)InputMsg.key_num_03);
+	public keyTracker kt_num_04 = new keyTracker("num_04", (int)InputMsg.key_num_04);
 
 	private List<keyTracker> allKeys = new List<keyTracker>();
 
@@ -35,6 +40,10 @@ public class KeyInput : MonoBehaviour
 		allKeys.Add(kt_hori);
 		allKeys.Add(kt_vert);
 		allKeys.Add(kt_shift);
+		allKeys.Add(kt_num_01);
+		allKeys.Add(kt_num_02);
+		allKeys.Add(kt_num_03);
+		allKeys.Add(kt_num_04);
 	}
 
 	//Input gathered in update so nothing is missed

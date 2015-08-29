@@ -25,6 +25,10 @@ public class Menu : Singleton<Menu>
 
 	void Start ()
 	{	
+		//===== INIT all menus to fix flags
+		InitMenus();
+
+
 		//===== Default states of menus
 		DevMenu_on();
 
@@ -48,11 +52,11 @@ public class Menu : Singleton<Menu>
 
 
 		//===== Add Key input handlers
-		MessageKit<keyTracker>.addObserver(InputMsg.key_esc, DevMenu_keyPress);
+		MessageKit<keyTracker>.addObserver((int)InputMsg.key_esc, DevMenu_keyPress);
 
-		MessageKit<keyTracker>.addObserver(InputMsg.key_paint, PaintMenu_keyPress);
+		MessageKit<keyTracker>.addObserver((int)InputMsg.key_paint, PaintMenu_keyPress);
 
-		MessageKit<keyTracker>.addObserver(InputMsg.key_build, Building_keyPress);
+		MessageKit<keyTracker>.addObserver((int)InputMsg.key_build, Building_keyPress);
 	}
 	
 	//////////////////////////////////////////
@@ -265,10 +269,43 @@ public class Menu : Singleton<Menu>
 	public void Building_InGame_off()
 	{
 		menu_Build_InGame.Close();
+
+		//Turn off in-game build mode on close
+		Buildings.instance.StopBuildingPurchase();
 	}
 	
 	public void Building_InGame_toggle()
 	{
 		menu_Build_InGame.ToggleMenu();
+
+		if(!menu_Build_InGame.isOpen)
+		{
+			//Turn off in-game build mode on close
+			Buildings.instance.StopBuildingPurchase();
+		}
+	}
+
+
+
+	//////////////////////////////////////////
+
+	/// MENU INITIALIZATION
+
+	//////////////////////////////////////////
+	private void InitMenus()
+	{
+		// This is probably only needed for the IN GAME MENUs, but check all: in case their default states are not handled in Start
+		menu_Dev.Init();
+		menu_Config.Init();
+
+		menu_Pause.Init();
+		menu_EdgeInput.Init();
+		menu_Painting.Init();
+		menu_Building.Init();
+		menu_Resources.Init();
+		menu_Sound.Init();
+
+		// IN GAME MENUS
+		menu_Build_InGame.Init();
 	}
 }

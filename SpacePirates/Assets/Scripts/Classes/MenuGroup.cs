@@ -11,7 +11,26 @@ public class MenuGroup
 	public GameObject GO_Parent = null;
 	public List<GameObject> gos_MenuButtons = new List<GameObject>();
 
+	//Input Mask for 3d camera, if necessary
+	public GameObject GO_inputMask = null;
+
 	#region Public Methods
+
+	//Set the open flag on Start in Menu.cs
+	public void Init()
+	{
+		if(GO_Parent)
+		{
+			if(GO_Parent.activeSelf)
+			{
+				isOpen = true;
+			}
+			else
+			{
+				isOpen = false;
+			}
+		}
+	}
 
 	public void Open()
 	{
@@ -21,6 +40,12 @@ public class MenuGroup
 
 			//Try to set parent's canvas group too, if it has one
 			ToggleCanvasGroup(GO_Parent, true);
+		}
+
+		//Turn on the input mask if this MenuGroup has one
+		if(GO_inputMask)
+		{
+			GO_inputMask.SetActive(true);
 		}
 		
 		isOpen = true;
@@ -36,6 +61,12 @@ public class MenuGroup
 
 			//Try to set parent's canvas group too, if it has one
 			ToggleCanvasGroup(GO_Parent, false);
+		}
+
+		//Turn on the input mask if this MenuGroup has one
+		if(GO_inputMask)
+		{
+			GO_inputMask.SetActive(false);
 		}
 
 		isOpen = false;

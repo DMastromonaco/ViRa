@@ -264,7 +264,7 @@ public class InputParser_rightClick : MonoBehaviour
 						//Set delay to prevent multiple clicks, since we intend to process this one
 						_time_ClickUnDelayed = Time.time + delay_Clicks;
 
-						if(_enableDebugging){Debug.LogError("((( queue ClickStart");}
+						if(_enableDebugging){Debug.LogError("((( queue RightClickStart");}
 						_ongoing_Inputs[0].queueInput_ClickStart();
 					}
 				}
@@ -277,7 +277,7 @@ public class InputParser_rightClick : MonoBehaviour
 
 				if(_ongoing_Inputs[0].rend_RaycastHit || _ongoing_Inputs[0].rend_Current_ClickHit)
 				{
-					if(_enableDebugging){Debug.LogError("((( queue ClickEnd");}
+					if(_enableDebugging){Debug.LogError("((( queue RightClickEnd");}
 					_ongoing_Inputs[0].queueInput_ClickEnd();
 				}
 			}

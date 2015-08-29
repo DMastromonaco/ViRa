@@ -12,15 +12,23 @@ public class Buildings : Singleton<Buildings>
 	//STATE - In Game Building placement
 	public BuildingPlacement buildInGame = new BuildingPlacement();
 
-	//Prefabs
+	//== PUBLIC inspector vars
+	//Prefabs - regular buildings
 	public List<GameObject> prefabs_Buildings = new List<GameObject>();
+
+	//Prefabs - 'ghost' placement transparent buildings
+	public List<GameObject> prefabs_transBuildings = new List<GameObject>();
 
 	//== PUBLIC inspector vars
 	public GameObject GO_Root;
 
+	//The right click mask for In-Game building mode
+	public GameObject GO_rightClickQuad;
+
 	//The color of the selected building button
 	public Color color_ActiveBuildingButton;
 
+	public Vector3 v3_OffScreenLocation;
 
 	//== PRIVATE vars
 	private iBuildingReceiver _currentTile = null;
@@ -30,7 +38,8 @@ public class Buildings : Singleton<Buildings>
 
 	//TEMP GOs
 	public GameObject tempBuilding = null;
-
+	public GameObject transparentBuilding = null;
+	
 	//SPAWNED BUILDINGS
 	public List<GameObject> allBuildings = new List<GameObject>();
 
@@ -44,7 +53,10 @@ public class Buildings : Singleton<Buildings>
 	void Start ()
 	{			
 		//===== Add Key input handlers
-		MessageKit<keyTracker>.addObserver(InputMsg.key_shift, ShiftKey_keyPress);
+		MessageKit<keyTracker>.addObserver((int)InputMsg.key_shift, ShiftKey_keyPress);
+
+		//Building right click mask starts disabled
+		GO_rightClickQuad.SetActive(false);
 	}
 
 	///////////////////////////////////
@@ -106,7 +118,7 @@ public class Buildings : Singleton<Buildings>
 				else
 				{
 					//Handle placement of all other buildings
-					GameObject tempBuilding = GameObject.Instantiate(GetPrefab_forType(buildingPlacement.currentBuilding));
+					GameObject tempBuilding = GameObject.Instantiate(GetBuildingPrefab_forType(buildingPlacement.currentBuilding));
 
 					//Try to place building on the current tile
 					if(tempBuilding.gameObject.GetComponent<iBuildingPlacer>().PlaceBuilding(_currentTile))
@@ -159,7 +171,7 @@ public class Buildings : Singleton<Buildings>
 			//There is no temp building for remove mode
 			if(buildingPlacement.currentBuilding != BuildingType.remove)
 			{
-				tempBuilding = Instantiate(GetPrefab_forType(buildingPlacement.currentBuilding));
+				tempBuilding = Instantiate(GetBuildingPrefab_forType(buildingPlacement.currentBuilding));
 			}
 		}
 
@@ -218,11 +230,6 @@ public class Buildings : Singleton<Buildings>
 				//CAN afford building
 
 				StartBuildingPurchase(buildType, buildingbutton);
-
-				//TBD : Begin ghost building placement mode, using buildInGame state
-
-				Debug.LogError("can purchase");
-				Resources.instance.subMoney(buildCost); //TBD : Move cost subtraction to after building is placed
 			}
 			else
 			{
@@ -240,27 +247,85 @@ public class Buildings : Singleton<Buildings>
 		//Flag on
 		buildInGame.isOn = true;
 
-		//TBD : Spawn the ghost building, so it can be used when build tiles are hovered
-
 		//Set the color of the building button, since it was valid
 		buildingbutton.SetButtonColor(color_ActiveBuildingButton);
 		
 		//Set the current building which the player is attempting to place and purchase
 		buildInGame.currentBuilding = buildType;
+
+		//Turn on the right click quad, so that cancel building will be processed
+		GO_rightClickQuad.SetActive(true);
 	}
 
 	public void StopBuildingPurchase()
 	{
 		//Flag off
 		buildInGame.isOn = false;
+		buildInGame.keepOn = false;
+		buildInGame.autoPlaceBuilding = false;
 
 		//Clear building type
 		buildInGame.currentBuilding = BuildingType.off;
 
-		//TBD : Destroy temp ghost building, if it is spawned
+		//Turn off the right click quad for cancels
+		GO_rightClickQuad.SetActive(false);
+
+		//Destroy temp ghost building, if it is spawned
+		ClearTransparentBuilding();
 
 		//Make sure none of the building buttons are highlighted
 		ResetAllBuildingButtonColors();
+	}
+
+	public void PurchaseAndPlaceBuilding(iBuildingReceiver tile)
+	{
+		if(buildInGame.currentBuilding != BuildingType.off)
+		{
+			//Check cost and make sure the player can afford
+			int buildCost = BuildingCosts.GetCost(buildInGame.currentBuilding);
+			if(Resources.instance.CanAfford(buildCost))
+			{
+				//Handle purchase and placement of buildings
+				GameObject tempBuilding = GameObject.Instantiate(GetBuildingPrefab_forType(buildInGame.currentBuilding));
+				
+				//Try to place building on the current tile
+				if(tempBuilding.gameObject.GetComponent<iBuildingPlacer>().PlaceBuilding(tile))
+				{
+					//building was successfully placed onto the receiver
+
+					//Subtract the cost of the building
+					Resources.instance.subMoney(buildCost);
+
+					//Parent new building to root
+					tempBuilding.transform.parent = GO_Root.transform;
+					
+					//add to internal list
+					allBuildings.Add(tempBuilding);
+					
+					//Initiate the new building (with it's index, etc)
+					tempBuilding.gameObject.GetComponent<iBuildingPlacer>().Init(allBuildings.Count - 1);
+					
+					//Play building place sound
+					Sounds.instance.Play(
+						tempBuilding.gameObject.GetComponent<iBuildingPlacer>().getPlacementSound());
+
+					//Destroy the transparent building temp game object
+					ClearTransparentBuilding();
+				}
+				else
+				{
+					//fail to build, destroy temp
+					Destroy(tempBuilding);
+				}
+			}
+
+			//See if we need to drop out of build mode, if they can no longer afford the placements
+			//Check cost and make sure the player can afford
+			if(!Resources.instance.CanAfford(buildCost))
+			{
+				StopBuildingPurchase();
+			}
+		}
 	}
 
 	// BUTTONs for in-game building
@@ -281,10 +346,46 @@ public class Buildings : Singleton<Buildings>
 		}
 	}
 
+	//Transparent building handling
+
+	public void PlaceTransparentBuilding(iBuildingReceiver tile)
+	{
+		//Spawn transparent building if it's not already
+		if(transparentBuilding == null)
+		{
+			//There is no temp building for remove mode
+			if(buildInGame.currentBuilding != BuildingType.remove)
+			{
+				transparentBuilding = Instantiate(GetTransparentBuildingPrefab_forType(buildInGame.currentBuilding));
+			}
+		}
+
+		//Place the transparent building on the requesting receiver (board tile)
+		if(transparentBuilding != null)
+		{
+			transparentBuilding.GetComponent<iBuildingPlacer>().ChangeLoc(tile.getPlacementLocation());
+		}
+	}
+
+	public void MoveTransparentBuildingOffScreen()
+	{
+		if(transparentBuilding != null)
+		{
+			transparentBuilding.GetComponent<iBuildingPlacer>().ChangeLoc(v3_OffScreenLocation);
+		}
+	}
+
+	public void ClearTransparentBuilding()
+	{
+		Destroy(transparentBuilding);
+	}
+
 
 	///////////////////////////////////
 
-	public GameObject GetPrefab_forType(BuildingType whatBuilding)
+	/// Prefab references by type
+
+	public GameObject GetBuildingPrefab_forType(BuildingType whatBuilding)
 	{
 		switch(whatBuilding)
 		{
@@ -312,6 +413,40 @@ public class Buildings : Singleton<Buildings>
 			return prefabs_Buildings[4];
 			break;
 
+		default:
+			return null;
+			break;
+		}
+	}
+
+	public GameObject GetTransparentBuildingPrefab_forType(BuildingType whatBuilding)
+	{
+		switch(whatBuilding)
+		{
+		case BuildingType.off:
+			return null;
+			break;
+			
+		case BuildingType.bld_govMansion:
+			return null;
+			break;
+			
+		case BuildingType.bld_workerHouse:
+			return prefabs_transBuildings[1];
+			break;
+			
+		case BuildingType.bld_bar:
+			return prefabs_transBuildings[2];
+			break;
+			
+		case BuildingType.bld_security:
+			return prefabs_transBuildings[3];
+			break;
+			
+		case BuildingType.bld_hotel:
+			return prefabs_transBuildings[4];
+			break;
+			
 		default:
 			return null;
 			break;
@@ -377,7 +512,7 @@ public class Buildings : Singleton<Buildings>
 			for(int j = 0; j < buildingTypes.Count; j++)
 			{
 				//Spawn prefab corresponding to this type
-				tempGO = GameObject.Instantiate(GetPrefab_forType((BuildingType)buildingTypes[j]));
+				tempGO = GameObject.Instantiate(GetBuildingPrefab_forType((BuildingType)buildingTypes[j]));
 
 				//Find the tile it should go on
 				_tempTile = Board.instance.getTileAtLoc(buildingLocations[j]);

@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Prime31.MessageKit;
 
 [RequireComponent(typeof(Image))]
 public class BuildingButton : MonoBehaviour
 {
 	//PUBLIC VARS
 	public BuildingType myBuildingType = BuildingType.off; //Assign to correct building enum in inspector
+
+	public InputMsg myHotkey; //Assign to correct input message number key (hotkey) for this button
 
 	//The image component of this button
 	private Image _image;
@@ -22,6 +25,9 @@ public class BuildingButton : MonoBehaviour
 
 		//store starting color
 		_defaultColor = _image.color;
+
+		//===== Add Key input handlers for Hotkey
+		MessageKit<keyTracker>.addObserver((int)myHotkey, hotkeyPress);
 
 		DoAwake();
 	}
@@ -39,6 +45,20 @@ public class BuildingButton : MonoBehaviour
 		//Pass a reference of this button to the Building script
 		Buildings.instance.RegisterBuildingButton(this as BuildingButton);
 	}
+
+	//HOTKEY - from messageKit
+	public void hotkeyPress(keyTracker kt)
+	{
+		//If they press the hotkey for this button, treat as click
+		if(kt.is_FirstFrame)
+		{
+			if(this.isActiveAndEnabled)
+			{
+				BeginBuildingPurchase();
+			}
+		}
+	}
+
 
 	//Methods for button and interactive with Buildings.cs singleton
 	public void BeginBuildingPurchase()

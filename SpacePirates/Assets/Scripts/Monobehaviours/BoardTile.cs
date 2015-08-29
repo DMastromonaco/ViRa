@@ -69,6 +69,7 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 	#region iClickable interfaces
 	public void ClickStart(inputTracker input)
 	{
+		//PAINT MODE - Click Start
 		if(BrushType.Off != (BrushType)Painting.instance.paintBrush.currentBrush)
 		{
 			//flag on
@@ -78,6 +79,7 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 			PaintClick((BrushType)Painting.instance.paintBrush.currentBrush);
 		}
 
+		//DEV BUILDING MODE - Click Start
 		if(BuildingType.off != (BuildingType)Buildings.instance.buildingPlacement.currentBuilding)
 		{
 			//Check if we are in removal mode
@@ -103,16 +105,40 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 				}
 			}
 		}
+
+		//IN-GAME BUILDING MODE - Click Start
+		if(Buildings.instance.buildInGame.isOn)
+		{
+			//Only if we don't have a building attempt to purchase
+			if(canReceiveBuilding())
+			{
+				Buildings.instance.PurchaseAndPlaceBuilding(this as iBuildingReceiver);
+
+				//If we are not set to keep building (shift held down), then drop out of in-game build mode
+				if(!Buildings.instance.buildInGame.keepOn)
+				{
+					Buildings.instance.StopBuildingPurchase();
+				}
+				else
+				{
+					//If shift is held down, turn on auto place mode (which will end after a ClickEnd)
+					//In other words, shift and clickdown + drag will result in auto building
+					Buildings.instance.buildInGame.autoPlaceBuilding = true;
+				}
+			}
+		}
 	}
 	
 	public void ClickEnd(inputTracker input)
 	{
+		//PAINT MODE - Click End
 		if(Painting.instance.paintBrush.isOn)
 		{
 			//flag off
 			Painting.instance.StopPainting();
 		}
 
+		//DEV BUILDING MODE - Click End
 		if(Buildings.instance.buildingPlacement.isOn)
 		{
 			//clear temp building display
@@ -123,6 +149,13 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 
 			//flag off
 			Buildings.instance.StopPlacement();
+		}
+
+		//IN-GAME BUILDING MODE - Click End
+		if(Buildings.instance.buildInGame.isOn)
+		{
+			//Turn off auto place on a click end
+			Buildings.instance.buildInGame.autoPlaceBuilding = false;
 		}
 	}
 
@@ -140,6 +173,7 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 	{
 		SetHighlight(color_highlight_on);
 
+		//PAINT MODE - Hover
 		if(Painting.instance.paintBrush.isOn)
 		{
 			if(BrushType.Off != (BrushType)Painting.instance.paintBrush.currentBrush)
@@ -149,6 +183,7 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 			}
 		}
 
+		//DEV BUILDINGS - Hover
 		if(Buildings.instance.buildingPlacement.isOn)
 		{
 			if(BuildingType.off != (BuildingType)Buildings.instance.buildingPlacement.currentBuilding)
@@ -172,9 +207,25 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 			}
 		}
 
+		//IN-GAME TRANSPARENT BUILDINGS - Hover
 		if(Buildings.instance.buildInGame.isOn)
 		{
-			//TBD : Add hover display for In-Game building placement (ghost building)
+			//Only if we don't have a building display the hover
+			if(canReceiveBuilding())
+			{
+				Buildings.instance.PlaceTransparentBuilding(this as iBuildingReceiver);
+
+				//If auto-build is turned on (they were holding shift and are still holding down a click)
+				//Then just purchase the building immediately
+				if(Buildings.instance.buildInGame.autoPlaceBuilding)
+				{
+					Buildings.instance.PurchaseAndPlaceBuilding(this as iBuildingReceiver);
+				}
+			}
+			else
+			{
+				Buildings.instance.MoveTransparentBuildingOffScreen();
+			}
 		}
 	}
 	

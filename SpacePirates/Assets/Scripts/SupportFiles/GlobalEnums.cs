@@ -73,7 +73,8 @@ public enum SoundType
 
 // define your messageTypes (which are ints) preferably as const so they can be easily referenced
 // and will benefit from code completion
-public class InputMsg
+/*
+public static class InputMsg
 {
 	public const int key_esc = 0;
 	public const int key_paint = 1;
@@ -84,4 +85,30 @@ public class InputMsg
 	public const int key_vertical = 5;
 
 	public const int key_shift = 6;
+
+	public const int key_num_01 = 11;
+	public const int key_num_02 = 12;
+	public const int key_num_03 = 13;
+	public const int key_num_04 = 14;
+}
+
+*/
+
+//messageTypes for Prime31.MessageKit, these must be cast as (int) to be usable
+public enum InputMsg
+{
+	key_esc = 0,
+	key_paint = 1,
+	key_build = 2,
+	key_scroll = 3,
+	
+	key_horizontal = 4,
+	key_vertical = 5,
+	
+	key_shift = 6,
+	
+	key_num_01 = 11,
+	key_num_02 = 12,
+	key_num_03 = 13,
+	key_num_04 = 14,
 }

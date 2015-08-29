@@ -8,6 +8,8 @@ public class BuildingPlacement
 	public bool isOn = false;
 
 	public bool keepOn = false;
+
+	public bool autoPlaceBuilding = false;
 	
 	public BuildingType currentBuilding = BuildingType.off;
 

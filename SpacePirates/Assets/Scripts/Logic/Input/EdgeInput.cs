@@ -8,10 +8,10 @@ public class EdgeInput : MonoBehaviour
 	//assign in inspector
 	public int ktIndex = 0;
 
-	public keyTracker kt_hori_left = new keyTracker("Horizontal_Left", InputMsg.key_horizontal, -1.0f);
-	public keyTracker kt_hori_right = new keyTracker("Horizontal_Right", InputMsg.key_horizontal, 1.0f);
-	public keyTracker kt_vert_forward = new keyTracker("Vertical_Forward", InputMsg.key_vertical, 1.0f);
-	public keyTracker kt_vert_backward = new keyTracker("Vertical_Backward", InputMsg.key_vertical, -1.0f);
+	public keyTracker kt_hori_left = new keyTracker("Horizontal_Left", (int)InputMsg.key_horizontal, -1.0f);
+	public keyTracker kt_hori_right = new keyTracker("Horizontal_Right", (int)InputMsg.key_horizontal, 1.0f);
+	public keyTracker kt_vert_forward = new keyTracker("Vertical_Forward", (int)InputMsg.key_vertical, 1.0f);
+	public keyTracker kt_vert_backward = new keyTracker("Vertical_Backward", (int)InputMsg.key_vertical, -1.0f);
 
 	private List<keyTracker> allKTs = new List<keyTracker>();
 
