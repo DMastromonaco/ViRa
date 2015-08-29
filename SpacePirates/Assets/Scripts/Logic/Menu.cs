@@ -42,7 +42,9 @@ public class Menu : Singleton<Menu>
 		menu_Sound.Close();
 
 		//===== IN GAME MENUS - Default states
-		Building_InGame_off();
+
+		//Do not turn off the in-game building menu, so the buttons can register correctly when it is on or turned on
+		//Building_InGame_off();
 
 
 		//===== Add Key input handlers

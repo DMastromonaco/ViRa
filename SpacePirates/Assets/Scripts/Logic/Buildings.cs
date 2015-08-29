@@ -18,6 +18,10 @@ public class Buildings : Singleton<Buildings>
 	//== PUBLIC inspector vars
 	public GameObject GO_Root;
 
+	//The color of the selected building button
+	public Color color_ActiveBuildingButton;
+
+
 	//== PRIVATE vars
 	private iBuildingReceiver _currentTile = null;
 
@@ -29,6 +33,11 @@ public class Buildings : Singleton<Buildings>
 
 	//SPAWNED BUILDINGS
 	public List<GameObject> allBuildings = new List<GameObject>();
+
+
+
+	//All building buttons, so their color can be controlled
+	public List<BuildingButton> allBuildingButtons = new List<BuildingButton>();
 
 	///////////////////////////////////
 
@@ -193,22 +202,27 @@ public class Buildings : Singleton<Buildings>
 	
 	// BUILDING PLACMENT - In Game
 
-	public void BeginBuildingPurchase(int whatBuilding)
+	public void TryBeginBuildingPurchase(BuildingType buildType, BuildingButton buildingbutton)
 	{
-		//Only check purchase of valid BuildingType enums
-		if(Enum.IsDefined(typeof(BuildingType), whatBuilding))
+		//Only set for valid buildable building types
+		if(buildType != BuildingType.off && buildType != BuildingType.remove)
 		{
-			BuildingType buildType = (BuildingType)whatBuilding;
 			int buildCost = BuildingCosts.GetCost(buildType);
+
+			//Assume off state until purchase cost is validated
+			StopBuildingPurchase();
 
 			//Check if player can afford to begin purchase of this building
 			if(Resources.instance.CanAfford(buildCost))
 			{
 				//CAN afford building
 
-				//TBD : Change this to ghost building placement mode, using buildInGame state
+				StartBuildingPurchase(buildType, buildingbutton);
+
+				//TBD : Begin ghost building placement mode, using buildInGame state
+
 				Debug.LogError("can purchase");
-				Resources.instance.subMoney(buildCost);
+				Resources.instance.subMoney(buildCost); //TBD : Move cost subtraction to after building is placed
 			}
 			else
 			{
@@ -219,6 +233,54 @@ public class Buildings : Singleton<Buildings>
 			}
 		}
 	}
+
+	//After a valid building type and cost have been validated, set the in-game build state
+	private void StartBuildingPurchase(BuildingType buildType, BuildingButton buildingbutton)
+	{
+		//Flag on
+		buildInGame.isOn = true;
+
+		//TBD : Spawn the ghost building, so it can be used when build tiles are hovered
+
+		//Set the color of the building button, since it was valid
+		buildingbutton.SetButtonColor(color_ActiveBuildingButton);
+		
+		//Set the current building which the player is attempting to place and purchase
+		buildInGame.currentBuilding = buildType;
+	}
+
+	public void StopBuildingPurchase()
+	{
+		//Flag off
+		buildInGame.isOn = false;
+
+		//Clear building type
+		buildInGame.currentBuilding = BuildingType.off;
+
+		//TBD : Destroy temp ghost building, if it is spawned
+
+		//Make sure none of the building buttons are highlighted
+		ResetAllBuildingButtonColors();
+	}
+
+	// BUTTONs for in-game building
+
+	//All building buttons will call this on awake so they can register with the list
+	public void RegisterBuildingButton(BuildingButton buildingbutton)
+	{
+		allBuildingButtons.Add(buildingbutton);
+	}
+
+	//Colors
+
+	public void ResetAllBuildingButtonColors()
+	{
+		for(int x = 0; x < allBuildingButtons.Count; x++)
+		{
+			allBuildingButtons[x].ResetButtonColor();
+		}
+	}
+
 
 	///////////////////////////////////
 
@@ -348,18 +410,12 @@ public class Buildings : Singleton<Buildings>
 	public void ShiftKey_keyPress(keyTracker kt)
 	{
 		if(kt.is_KeyDown)
-		{
-			//TBD : remove debugging
-			Debug.LogError("shift");
-			           
+		{ 
 			buildInGame.keepOn = true;
 		}
 		else
 		{
 			//Key has been released
-
-			//TBD : remove debugging
-			Debug.LogError("off");
 
 			buildInGame.keepOn = false;
 		}
