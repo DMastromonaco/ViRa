@@ -32,6 +32,7 @@ public class Buildings : Singleton<Buildings>
 
 	//== PRIVATE vars
 	private iBuildingReceiver _currentTile = null;
+	private iBuildingReceiver _currentTile_buildMode = null;
 
 	//To track if the shift key is held down or not
 	private keyTracker kt_Shift = new keyTracker("Shift");
@@ -212,7 +213,7 @@ public class Buildings : Singleton<Buildings>
 
 	///////////////////////////////////
 	
-	// BUILDING PLACMENT - In Game
+	//===== BUILDING PLACMENT - In Game
 
 	public void TryBeginBuildingPurchase(BuildingType buildType, BuildingButton buildingbutton)
 	{
@@ -222,6 +223,7 @@ public class Buildings : Singleton<Buildings>
 			int buildCost = BuildingCosts.GetCost(buildType);
 
 			//Assume off state until purchase cost is validated
+			//This will clear any previous button highlights or transparent buildings from previous build mode
 			StopBuildingPurchase();
 
 			//Check if player can afford to begin purchase of this building
@@ -255,6 +257,9 @@ public class Buildings : Singleton<Buildings>
 
 		//Turn on the right click quad, so that cancel building will be processed
 		GO_rightClickQuad.SetActive(true);
+
+		//Spawn the transparent building on the current tile, if valid
+		SpawnTransparentBuilding_onCurrentTile();
 	}
 
 	public void StopBuildingPurchase()
@@ -328,7 +333,23 @@ public class Buildings : Singleton<Buildings>
 		}
 	}
 
-	// BUTTONs for in-game building
+	//Called on hover start of tiles
+	public void SetCurrentTile_buildMode(iBuildingReceiver tile)
+	{
+		_currentTile_buildMode = tile;
+	}
+
+	//Called on hover stop of tiles
+	public void ClearCurrentTile_buildMode(iBuildingReceiver tile)
+	{
+		//If we have stopped hovering the tile that was ref'ed as the current build mode tile, set to null
+		if(_currentTile_buildMode == tile)
+		{
+			_currentTile_buildMode = null;
+		}
+	}
+
+	//===== BUTTONs for in-game building
 
 	//All building buttons will call this on awake so they can register with the list
 	public void RegisterBuildingButton(BuildingButton buildingbutton)
@@ -346,7 +367,7 @@ public class Buildings : Singleton<Buildings>
 		}
 	}
 
-	//Transparent building handling
+	//===== Transparent building handling
 
 	public void PlaceTransparentBuilding(iBuildingReceiver tile)
 	{
@@ -375,9 +396,23 @@ public class Buildings : Singleton<Buildings>
 		}
 	}
 
+	public void SpawnTransparentBuilding_onCurrentTile()
+	{
+		//If there is a currently hovered tile, and build mode has been activated
+		//Spawn a transparent building on it
+		if(_currentTile_buildMode != null)
+		{
+			//Only place if the tile can receive a building (doesn't have one already)
+			if(_currentTile_buildMode.canReceiveBuilding())
+			{
+				PlaceTransparentBuilding(_currentTile_buildMode);
+			}
+		}
+	}
+
 	public void ClearTransparentBuilding()
 	{
-		Destroy(transparentBuilding);
+		DestroyImmediate(transparentBuilding);
 	}
 
 

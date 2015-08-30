@@ -46,10 +46,11 @@ public class BuildingButton : MonoBehaviour
 		Buildings.instance.RegisterBuildingButton(this as BuildingButton);
 	}
 
+
 	//HOTKEY - from messageKit
 	public void hotkeyPress(keyTracker kt)
 	{
-		//If they press the hotkey for this button, treat as click
+		//If they press the hotkey for this button, treat same click of the building button
 		if(kt.is_FirstFrame)
 		{
 			if(this.isActiveAndEnabled)
@@ -60,10 +61,13 @@ public class BuildingButton : MonoBehaviour
 	}
 
 
-	//Methods for button and interactive with Buildings.cs singleton
+	//Methods for Button.cs and interactive with Buildings.cs singleton
 	public void BeginBuildingPurchase()
 	{
 		Buildings.instance.TryBeginBuildingPurchase(myBuildingType, this as BuildingButton);
+
+		//Set the ghost transparent building to be on the currently hovered tile
+		//Buildings.instance.SpawnTransparentBuilding_onCurrentTile();
 	}
 
 	public void ResetBuildingButtons()
