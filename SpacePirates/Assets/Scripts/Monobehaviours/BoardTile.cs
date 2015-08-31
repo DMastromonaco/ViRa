@@ -173,9 +173,6 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 	{
 		SetHighlight(color_highlight_on);
 
-		//Set the currently hovered tile in Buildings, for if BuildMode is turned on
-		Buildings.instance.SetCurrentTile_buildMode(this as iBuildingReceiver);
-
 		//PAINT MODE - Hover
 		if(Painting.instance.paintBrush.isOn)
 		{
@@ -235,9 +232,6 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 	public void HoverEnd(inputTracker input)
 	{
 		SetHighlight(color_highlight_off);
-
-		//Clear this if it is the current tile for build mode
-		Buildings.instance.ClearCurrentTile_buildMode(this as iBuildingReceiver);
 	}
 	#endregion
 
