@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Quad_buildMode_OutOfBounds : MonoBehaviour
+public class Quad_OutOfBounds : MonoBehaviour
 {
 	//If they mouse over an out of bounds area, the transparent building should be placed off screen
 	public void HoverStart(inputTracker input)
