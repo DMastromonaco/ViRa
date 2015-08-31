@@ -2361,10 +2361,6 @@
       <x>37</x>
       <y>15</y>
     </rowCol>
-    <rowCol>
-      <x>38</x>
-      <y>14</y>
-    </rowCol>
   </TileLocations>
   <Buildings>
     <typeID>10</typeID>
