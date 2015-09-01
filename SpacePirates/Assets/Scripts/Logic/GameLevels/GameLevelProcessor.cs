@@ -52,12 +52,14 @@ public class GameLevelProcessor : MonoBehaviour
 			//Check all triggers for this time with while
 			while(GameTime.instance.getGameTime() > gameLevelData.triggerTimes[curTrigger])
 			{
-				//TBD : Process the current trigger
-
 				//Debugging TBD : remove
 				Debug.Log("Process game trigger : " + gameLevelData.triggerTypes[curTrigger].ToString());
 				Debug.Log("  with params : " + gameLevelData.triggerParams[curTrigger].ToString());
 				Debug.Log("    at time : " + GameTime.instance.getGameTime());
+
+				//Process the current trigger
+				Events.instance.ProcessTrigger(gameLevelData.triggerTypes[curTrigger],
+				                               gameLevelData.triggerParams[curTrigger]);
 
 				//Move to next
 				curTrigger++;

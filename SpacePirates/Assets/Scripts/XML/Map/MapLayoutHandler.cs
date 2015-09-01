@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class MapLayoutHandler : MonoBehaviour
+public class MapLayoutHandler : Singleton<MapLayoutHandler>
 {
 	public C_MapLayout MapLayout;
 

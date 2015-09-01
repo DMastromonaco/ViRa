@@ -3522,6 +3522,7 @@ Transform:
   - {fileID: 747765494}
   - {fileID: 273762856}
   - {fileID: 247417159}
+  - {fileID: 1257049233}
   m_Father: {fileID: 339342697}
   m_RootOrder: 3
 --- !u!1 &372112957
@@ -4212,11 +4213,13 @@ MonoBehaviour:
   gameLevelData:
     triggerTimes:
     - 3
-    - 5
-    triggerTypes: 0a0000000f000000
+    - 4
+    - 8
+    triggerTypes: 0a0000000f00000010000000
     triggerParams:
     - message,here
-    - spawn,map,now,222
+    - 05
+    - 02
 --- !u!1 &415017329
 GameObject:
   m_ObjectHideFlags: 0
@@ -16387,6 +16390,45 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1243212254}
+--- !u!1 &1257049232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1257049233}
+  - 114: {fileID: 1257049234}
+  m_Layer: 0
+  m_Name: Events
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1257049233
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257049232}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 371962827}
+  m_RootOrder: 6
+--- !u!114 &1257049234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257049232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c200f81e6cfc2a4ab0f414f2b1e730e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1261749179
 GameObject:
   m_ObjectHideFlags: 0

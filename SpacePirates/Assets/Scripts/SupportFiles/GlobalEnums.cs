@@ -55,7 +55,8 @@ public enum GameTriggerType
 
 	showMessage = 10,
 
-	spawnMap = 15,
+	spawnMap_tiles = 15,
+	spawnMap_buildings = 16,
 
 	spawnEnemy = 20,
 }

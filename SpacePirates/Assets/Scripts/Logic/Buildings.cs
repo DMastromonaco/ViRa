@@ -567,7 +567,7 @@ public class Buildings : Singleton<Buildings>
 					allBuildings.Add(tempGO);
 
 					//Set ID of building
-					tempGO.GetComponent<iBuildingPlacer>().Init(j);
+					tempGO.GetComponent<iBuildingPlacer>().Init(allBuildings.Count - 1);
 
 					//Parent new building to root
 					tempGO.transform.parent = GO_Root.transform;

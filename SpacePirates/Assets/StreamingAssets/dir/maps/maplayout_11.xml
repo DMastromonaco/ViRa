@@ -659,10 +659,6 @@
     </rowCol>
     <rowCol>
       <x>14</x>
-      <y>6</y>
-    </rowCol>
-    <rowCol>
-      <x>14</x>
       <y>7</y>
     </rowCol>
     <rowCol>
@@ -748,10 +744,6 @@
     <rowCol>
       <x>15</x>
       <y>5</y>
-    </rowCol>
-    <rowCol>
-      <x>15</x>
-      <y>6</y>
     </rowCol>
     <rowCol>
       <x>15</x>
@@ -2374,6 +2366,33 @@
       <y>15</y>
     </rowCol>
   </TileLocations>
-  <Buildings />
-  <BuildingLocations />
+  <Buildings>
+    <typeID>10</typeID>
+    <typeID>12</typeID>
+    <typeID>14</typeID>
+    <typeID>14</typeID>
+    <typeID>13</typeID>
+  </Buildings>
+  <BuildingLocations>
+    <rowCol>
+      <x>13</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>15</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>16</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>17</x>
+      <y>6</y>
+    </rowCol>
+    <rowCol>
+      <x>18</x>
+      <y>6</y>
+    </rowCol>
+  </BuildingLocations>
 </MapLayout>
