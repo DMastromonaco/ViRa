@@ -32,6 +32,10 @@ public static class BuildingCosts
 		case BuildingType.bld_hotel:
 			return 10;
 			break;
+
+		case BuildingType.bld_mine:
+			return 5;
+			break;
 			
 		default:
 			return 0;

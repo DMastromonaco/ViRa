@@ -48,6 +48,7 @@ public enum BuildingType
 	bld_bar = 12,
 	bld_security = 13,
 	bld_hotel = 14,
+	bld_mine = 15,
 
 
 	remove = 99,
@@ -63,36 +64,6 @@ public enum SoundType
 	Building_place = 11,
 }
 
-
-
-
-
-
-
-
-
-// define your messageTypes (which are ints) preferably as const so they can be easily referenced
-// and will benefit from code completion
-/*
-public static class InputMsg
-{
-	public const int key_esc = 0;
-	public const int key_paint = 1;
-	public const int key_build = 2;
-	public const int key_scroll = 3;
-
-	public const int key_horizontal = 4;
-	public const int key_vertical = 5;
-
-	public const int key_shift = 6;
-
-	public const int key_num_01 = 11;
-	public const int key_num_02 = 12;
-	public const int key_num_03 = 13;
-	public const int key_num_04 = 14;
-}
-
-*/
 
 //messageTypes for Prime31.MessageKit, these must be cast as (int) to be usable
 public enum InputMsg
@@ -111,4 +82,10 @@ public enum InputMsg
 	key_num_02 = 12,
 	key_num_03 = 13,
 	key_num_04 = 14,
+	key_num_05 = 15,
+	key_num_06 = 16,
+	key_num_07 = 17,
+	key_num_08 = 18,
+	key_num_09 = 19,
+	key_num_00 = 20,
 }

@@ -24,6 +24,12 @@ public class KeyInput : MonoBehaviour
 	public keyTracker kt_num_02 = new keyTracker("num_02", (int)InputMsg.key_num_02);
 	public keyTracker kt_num_03 = new keyTracker("num_03", (int)InputMsg.key_num_03);
 	public keyTracker kt_num_04 = new keyTracker("num_04", (int)InputMsg.key_num_04);
+	public keyTracker kt_num_05 = new keyTracker("num_05", (int)InputMsg.key_num_05);
+	public keyTracker kt_num_06 = new keyTracker("num_06", (int)InputMsg.key_num_06);
+	public keyTracker kt_num_07 = new keyTracker("num_07", (int)InputMsg.key_num_07);
+	public keyTracker kt_num_08 = new keyTracker("num_08", (int)InputMsg.key_num_08);
+	public keyTracker kt_num_09 = new keyTracker("num_09", (int)InputMsg.key_num_09);
+	public keyTracker kt_num_00 = new keyTracker("num_00", (int)InputMsg.key_num_00);
 
 	private List<keyTracker> allKeys = new List<keyTracker>();
 
@@ -44,6 +50,12 @@ public class KeyInput : MonoBehaviour
 		allKeys.Add(kt_num_02);
 		allKeys.Add(kt_num_03);
 		allKeys.Add(kt_num_04);
+		allKeys.Add(kt_num_05);
+		allKeys.Add(kt_num_06);
+		allKeys.Add(kt_num_07);
+		allKeys.Add(kt_num_08);
+		allKeys.Add(kt_num_09);
+		allKeys.Add(kt_num_00);
 	}
 
 	//Input gathered in update so nothing is missed

@@ -448,6 +448,10 @@ public class Buildings : Singleton<Buildings>
 			return prefabs_Buildings[4];
 			break;
 
+		case BuildingType.bld_mine:
+			return prefabs_Buildings[5];
+			break;
+
 		default:
 			return null;
 			break;
@@ -480,6 +484,10 @@ public class Buildings : Singleton<Buildings>
 			
 		case BuildingType.bld_hotel:
 			return prefabs_transBuildings[4];
+			break;
+
+		case BuildingType.bld_mine:
+			return prefabs_transBuildings[5];
 			break;
 			
 		default:

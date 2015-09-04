@@ -2364,19 +2364,15 @@
   </TileLocations>
   <Buildings>
     <typeID>10</typeID>
-    <typeID>10</typeID>
     <typeID>11</typeID>
     <typeID>12</typeID>
     <typeID>13</typeID>
     <typeID>14</typeID>
+    <typeID>15</typeID>
   </Buildings>
   <BuildingLocations>
     <rowCol>
       <x>23</x>
-      <y>1</y>
-    </rowCol>
-    <rowCol>
-      <x>24</x>
       <y>1</y>
     </rowCol>
     <rowCol>
@@ -2394,6 +2390,10 @@
     <rowCol>
       <x>26</x>
       <y>3</y>
+    </rowCol>
+    <rowCol>
+      <x>27</x>
+      <y>4</y>
     </rowCol>
   </BuildingLocations>
 </MapLayout>
