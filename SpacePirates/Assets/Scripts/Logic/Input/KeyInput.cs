@@ -19,6 +19,7 @@ public class KeyInput : MonoBehaviour
 	public keyTracker kt_vert = new keyTracker("Vertical", (int)InputMsg.key_vertical);
 
 	public keyTracker kt_shift = new keyTracker("Shift", (int)InputMsg.key_shift);
+	public keyTracker kt_tab = new keyTracker("Tab", (int)InputMsg.key_tab);
 
 	public keyTracker kt_num_01 = new keyTracker("num_01", (int)InputMsg.key_num_01);
 	public keyTracker kt_num_02 = new keyTracker("num_02", (int)InputMsg.key_num_02);
@@ -46,6 +47,7 @@ public class KeyInput : MonoBehaviour
 		allKeys.Add(kt_hori);
 		allKeys.Add(kt_vert);
 		allKeys.Add(kt_shift);
+		allKeys.Add(kt_tab);
 		allKeys.Add(kt_num_01);
 		allKeys.Add(kt_num_02);
 		allKeys.Add(kt_num_03);

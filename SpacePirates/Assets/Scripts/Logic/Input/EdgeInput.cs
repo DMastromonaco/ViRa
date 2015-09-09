@@ -17,29 +17,32 @@ public class EdgeInput : MonoBehaviour
 
 	void Start()
 	{
+		//Add in order according to index assigned in editor
 		allKTs.Add(kt_hori_left);
 		allKTs.Add(kt_hori_right);
 		allKTs.Add(kt_vert_forward);
 		allKTs.Add(kt_vert_backward);
 	}
 
-	private bool _isMoving = false;
-
+	//Called from EventSystem PointerEnter()
 	public void Move_start()
 	{
-		_isMoving = true;
+		allKTs[ktIndex].is_KeyDown = true;
+
 		StartCoroutine(Do_Move());
 	}
-	
+
+	//Called from EventSystem PointerExit()
 	public void Move_stop()
 	{
-		_isMoving = false;
+		allKTs[ktIndex].is_KeyDown = false;
 	}
 	
 	IEnumerator Do_Move()
 	{
-		while(_isMoving)
+		while(allKTs[ktIndex].is_KeyDown)
 		{
+			//Simulate keypress while mouse in in this area
 			MessageKit<keyTracker>.post( allKTs[ktIndex].keyMsg, allKTs[ktIndex] );
 			yield return new WaitForFixedUpdate();
 		}

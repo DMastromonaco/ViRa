@@ -77,6 +77,7 @@ public enum InputMsg
 	key_vertical = 5,
 	
 	key_shift = 6,
+	key_tab = 7,
 	
 	key_num_01 = 11,
 	key_num_02 = 12,
