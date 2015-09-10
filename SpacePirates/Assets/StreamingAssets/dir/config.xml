@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ConfigSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" m_playIntro="true" m_zoomSpeed="1.5" m_panSpeed_LR="0.8869658" m_panSpeed_FB="0.9581729" m_soundEnabled="true" m_vol_Master="1" m_vol_Music="1" m_vol_Effects="1" m_vol_Interface="1" />
+<ConfigSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" m_playIntro="true" m_zoomSpeed="1.5" m_panSpeed_LR="0.8869658" m_panSpeed_FB="0.9581729" m_soundEnabled="true" m_vol_Master="0.2371685" m_vol_Music="1" m_vol_Effects="1" m_vol_Interface="1" />

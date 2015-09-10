@@ -65,6 +65,18 @@ public enum SoundType
 }
 
 
+public enum GameTriggerType
+{
+	None = 0,
+
+	showMessage = 10,
+
+	spawnMap = 15,
+
+	spawnEnemy = 20,
+}
+
+
 //messageTypes for Prime31.MessageKit, these must be cast as (int) to be usable
 public enum InputMsg
 {

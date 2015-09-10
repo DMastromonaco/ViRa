@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 public static class MapLayoutSerializer
 {
 	//File Name
+	private static string _s_filePrefix = "maps/";
 	private static string _s_fileName = "maplayout_00";
 	private static string _s_fileExtension = ".xml";
 
@@ -20,7 +21,9 @@ public static class MapLayoutSerializer
 	public static void SerializeMapLayout(C_MapLayout MapLayout)
 	{        
 		XmlSerializer serializer = new XmlSerializer( typeof( C_MapLayout ) );
-		System.IO.StreamWriter streamWriter = System.IO.File.CreateText( FilePaths.GetResourcePath() + _s_fileName + _s_fileExtension ) ;
+		System.IO.StreamWriter streamWriter = System.IO.File.CreateText( FilePaths.GetResourcePath() + 
+		                                                                _s_filePrefix + 
+		                                                                _s_fileName + _s_fileExtension ) ;
 		
 		// object is type of C_MapLayout    
 		serializer.Serialize( streamWriter, MapLayout );
@@ -36,15 +39,18 @@ public static class MapLayoutSerializer
 	public static C_MapLayout DeserializeMapLayout()
 	{    
 		C_MapLayout MapLayout = new C_MapLayout();
+		string mapLayoutFileName = FilePaths.GetResourcePath() + _s_filePrefix + _s_fileName + _s_fileExtension;
 
 		System.IO.FileStream fileStream ;
 		XmlReader reader ;
 		XmlSerializer serializer = new XmlSerializer( typeof( C_MapLayout ) );
 		
 		// Check if file exists before opening a stream reader on it
-		if( !System.IO.File.Exists( FilePaths.GetResourcePath() + _s_fileName + _s_fileExtension ) )
+		if( !System.IO.File.Exists( mapLayoutFileName ) )
 		{
-			fileStream = System.IO.File.Create( FilePaths.GetResourcePath() + _s_fileName + _s_fileExtension ) ;
+			//Map file did not exist, creating one
+
+			fileStream = System.IO.File.Create( mapLayoutFileName ) ;
 			fileStream.Close() ;
 			fileStream.Dispose() ;
 			SerializeMapLayout(MapLayout) ;
@@ -52,7 +58,7 @@ public static class MapLayoutSerializer
 		else
 		{
 			// Open the data file and read it so as to fill the MapLayout structure
-			fileStream = new System.IO.FileStream( FilePaths.GetResourcePath() + _s_fileName + _s_fileExtension, System.IO.FileMode.Open );
+			fileStream = new System.IO.FileStream( mapLayoutFileName, System.IO.FileMode.Open );
 			reader = new XmlTextReader(fileStream) ;
 
 			try
