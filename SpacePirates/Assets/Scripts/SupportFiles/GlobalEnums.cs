@@ -22,22 +22,6 @@ public enum NeighborDirection
 	West = 3,
 }
 
-public enum MapLayoutNames
-{
-	maplayout_00 = 0,
-	maplayout_01 = 1,
-	maplayout_02 = 2,
-	maplayout_03 = 3,
-	maplayout_04 = 4,
-	maplayout_05 = 5,
-	maplayout_06 = 6,
-	maplayout_07 = 7,
-	maplayout_08 = 8,
-	maplayout_09 = 9,
-	maplayout_10 = 10,
-	maplayout_11 = 11,
-}
-
 
 public enum BuildingType
 {

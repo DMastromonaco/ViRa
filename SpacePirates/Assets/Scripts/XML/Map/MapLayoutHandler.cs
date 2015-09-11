@@ -8,6 +8,17 @@ public class MapLayoutHandler : MonoBehaviour
 
 	//////////////////////////////////////////
 
+	//Called from UI buttons from Unity Event System
+	public void ChangeMapSaveName(int whatMap)
+	{
+		string newLayoutName = MapLayoutNameGen.getName(whatMap);
+		
+		//change the file that the XML serializer is pointing to
+		MapLayoutSerializer.ChangeSaveName(newLayoutName);
+	}
+
+	//////////////////////////////////////////
+
 	public void LoadMapLayout()
 	{
 		//Load from file

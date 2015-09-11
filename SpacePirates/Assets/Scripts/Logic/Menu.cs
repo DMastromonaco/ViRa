@@ -18,6 +18,7 @@ public class Menu : Singleton<Menu>
 	public MenuGroup menu_Sound;
 
 	public MenuGroup menu_Levels;
+	public MenuGroup menu_LevelData;
 
 	//IN GAME MENUS
 	public MenuGroup menu_Build_InGame;
@@ -44,6 +45,7 @@ public class Menu : Singleton<Menu>
 		Resources_off();
 
 		Level_off();
+		LevelData_off();
 
 		Pause_off();
 
@@ -278,7 +280,6 @@ public class Menu : Singleton<Menu>
 	
 	public void Level_toggle()
 	{
-		//Calling the other functions so that the save and load of sound config XML fires
 		if(menu_Levels.isOpen)
 		{
 			Level_off();
@@ -286,6 +287,31 @@ public class Menu : Singleton<Menu>
 		else
 		{
 			Level_on();
+		}
+	}
+
+	//////////////////////////////////////////
+	/// Switching - Level Data Menu
+	
+	public void LevelData_on()
+	{
+		menu_LevelData.Open();
+	}
+	
+	public void LevelData_off()
+	{
+		menu_LevelData.Close();
+	}
+	
+	public void LevelData_toggle()
+	{
+		if(menu_LevelData.isOpen)
+		{
+			LevelData_off();
+		}
+		else
+		{
+			LevelData_on();
 		}
 	}
 
@@ -337,6 +363,7 @@ public class Menu : Singleton<Menu>
 		menu_Sound.Init();
 
 		menu_Levels.Init();
+		menu_LevelData.Init();
 
 		// IN GAME MENUS
 		menu_Build_InGame.Init();

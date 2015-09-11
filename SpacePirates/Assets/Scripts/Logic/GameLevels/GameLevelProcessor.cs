@@ -12,8 +12,8 @@ public class GameLevelProcessor : MonoBehaviour
 	//When the game object for levels are turned on, the FoC for the level begins
 	void OnEnable()
 	{
-		//Debugging
-		Debug.LogError("+++ starting level : " + gameLevelData.m_levelName);
+		//Debugging TBD : remove
+		Debug.Log("+++ starting level : " + gameLevelData.m_levelName);
 
 		//Set game time to 0
 		GameTime.instance.ResetGameTime();
@@ -41,15 +41,23 @@ public class GameLevelProcessor : MonoBehaviour
 	//Will check each fixed update if the game time has elapsed past a certain trigger, and process that trigger
 	IEnumerator Do_CheckTriggers()
 	{
+		//Prevent running of empty level
+		if(gameLevelData.triggerTimes.Count == 0)
+		{
+			yield break;
+		}
+
 		while(true)
 		{
 			//Check all triggers for this time with while
 			while(GameTime.instance.getGameTime() > gameLevelData.triggerTimes[curTrigger])
 			{
-				//Process the current trigger
-				Debug.LogError("Process game trigger : " + gameLevelData.triggerTypes[curTrigger].ToString());
-				Debug.LogError("  with params : " + gameLevelData.triggerParams[curTrigger].ToString());
-				Debug.LogError("    at time : " + GameTime.instance.getGameTime());
+				//TBD : Process the current trigger
+
+				//Debugging TBD : remove
+				Debug.Log("Process game trigger : " + gameLevelData.triggerTypes[curTrigger].ToString());
+				Debug.Log("  with params : " + gameLevelData.triggerParams[curTrigger].ToString());
+				Debug.Log("    at time : " + GameTime.instance.getGameTime());
 
 				//Move to next
 				curTrigger++;

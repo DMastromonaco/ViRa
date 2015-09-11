@@ -4,7 +4,20 @@ using System.Collections.Generic;
 
 public class LevelControl : Singleton<LevelControl>
 {
+	//Processor which is used when loading or saving game level data XMLs
+	public GameLevelGroup gameLevelProc;
+
+	//"Hard Coded" level objects
 	public List<GameLevelGroup> gameLevels;
+
+	////////////////////////////////////////////
+
+	public void StartProcessorLevel()
+	{
+		gameLevelProc.Level_Start();
+	}
+
+	////////////////////////////////////////////
 
 	public void StartLevel(int lvl)
 	{
@@ -36,5 +49,7 @@ public class LevelControl : Singleton<LevelControl>
 		{
 			gameLevels[x].Level_Stop();
 		}
+
+		gameLevelProc.Level_Stop();
 	}
 }

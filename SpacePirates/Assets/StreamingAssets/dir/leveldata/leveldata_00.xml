@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameLevelData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" m_levelName="Level00Test">
+  <triggerTimes>
+    <time>3</time>
+    <time>5</time>
+    <time>6</time>
+  </triggerTimes>
+  <gameTriggerTypes>
+    <triggerType>showMessage</triggerType>
+    <triggerType>spawnMap</triggerType>
+    <triggerType>spawnEnemy</triggerType>
+  </gameTriggerTypes>
+  <gameTriggerParams>
+    <triggerParams>message,here</triggerParams>
+    <triggerParams>spawn,map,now,222</triggerParams>
+    <triggerParams>ENEMYTEST</triggerParams>
+  </gameTriggerParams>
+</GameLevelData>
