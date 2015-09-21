@@ -4,46 +4,73 @@ using System.Collections;
 public class InputPassthru : MonoBehaviour
 {
 	public GameObject GO_target;
-	private iClickable target = null;
+	private iClickable clickTarget = null;
+	private iHoverable hoverTarget = null;
+
+	private bool hasClick = false;
+	private bool hasHover = false;
 
 	void Start()
 	{
-		target = GO_target.GetComponent<iClickable>();
+		clickTarget = GO_target.GetComponent<iClickable>();
+		hoverTarget = GO_target.GetComponent<iHoverable>();
 
-		if(target == null)
+		if(clickTarget != null)
 		{
-			Debug.LogWarning("No target for " + this.gameObject.name);
-			this.enabled = false;
+			hasClick = true;
+		}
+
+		if(hoverTarget != null)
+		{
+			hasHover = true;
 		}
 	}
 
 	public void ClickStart(inputTracker input)
 	{
-		target.ClickStart(input);
+		if(hasClick)
+		{
+			clickTarget.ClickStart(input);
+		}
 	}
 
 	public void ClickEnd(inputTracker input)
 	{
-		target.ClickEnd(input);
+		if(hasClick)
+		{
+			clickTarget.ClickEnd(input);
+		}
 	}
 
 	public void RightClickStart(inputTracker input)
 	{
-		target.RightClickStart(input);
+		if(hasClick)
+		{
+			clickTarget.RightClickStart(input);
+		}
 	}
 	
 	public void RightClickEnd(inputTracker input)
 	{
-		target.RightClickEnd(input);
+		if(hasClick)
+		{
+			clickTarget.RightClickEnd(input);
+		}
 	}
 
 	public void HoverStart(inputTracker input)
 	{
-		target.HoverStart(input);
+		if(hasHover)
+		{
+			hoverTarget.HoverStart(input);
+		}
 	}
 	
 	public void HoverEnd(inputTracker input)
 	{
-		target.HoverEnd(input);
+		if(hasHover)
+		{
+			hoverTarget.HoverEnd(input);
+		}
 	}
 }

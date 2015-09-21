@@ -47,7 +47,7 @@ public class Events : Singleton<Events>
 		Board.instance.Despawn();
 
 		//Set map layout name from args
-		MapLayoutHandler.instance.ChangeMapSaveName(Convert.ToInt32(args[0]));
+		setMap(args[0]);
 
 		//Spawn the board tiles from the assigned layout file
 		MapLayoutHandler.instance.SpawnBoard_fromLayout();
@@ -56,10 +56,25 @@ public class Events : Singleton<Events>
 	private void SpawnMap_Buildings(string[] args)
 	{
 		//Set map layout name from args
-		MapLayoutHandler.instance.ChangeMapSaveName(Convert.ToInt32(args[0]));
+		setMap(args[0]);
 		
 		//Spawn the buildings from the assigned layout file
 		MapLayoutHandler.instance.SpawnBuildings_fromLayout();
+	}
+
+	private void setMap(string arg)
+	{
+		int mapNum = -1;
+		if(int.TryParse(arg, out mapNum))
+		{
+			//int for map name
+			MapLayoutHandler.instance.setMapFileName(mapNum);
+		}
+		else
+		{
+			//string for mapname
+			MapLayoutHandler.instance.setMapFileName(arg);
+		}
 	}
 
 	// =========== ENEMIES ===========

@@ -8,7 +8,4 @@ public interface iClickable
 
 	void RightClickStart(inputTracker input);
 	void RightClickEnd(inputTracker input);
-
-	void HoverStart(inputTracker input);
-	void HoverEnd(inputTracker input);
 }

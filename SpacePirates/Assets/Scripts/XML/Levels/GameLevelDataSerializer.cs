@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Text.RegularExpressions;
 
 public static class GameLevelDataSerializer
 {
@@ -9,6 +10,7 @@ public static class GameLevelDataSerializer
 	private static string _s_fileName = "leveldata_00";
 	private static string _s_fileExtension = ".xml";
 
+	//Clean name generated from GameLevelDataNameGen.getName()
 	public static void setFileName(string newname)
 	{
 		_s_fileName = newname;

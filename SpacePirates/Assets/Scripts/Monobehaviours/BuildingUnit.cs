@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuildingUnit : MonoBehaviour, iBuildingPlacer
+public class BuildingUnit : MonoBehaviour, iBuildingPlacer, iHoverable
 {
 	//Does not need to be assigned in inspector
 	public GameObject GO_building;
@@ -13,6 +13,9 @@ public class BuildingUnit : MonoBehaviour, iBuildingPlacer
 	public BuildingType myType;
 	public SoundType sound_placement;
 	public SoundType sound_removal;
+
+	//== PRIVATE vars
+	private iHoverable tileHover = null;
 
 	#region Public Methods
 
@@ -58,6 +61,9 @@ public class BuildingUnit : MonoBehaviour, iBuildingPlacer
 
 			placedRowCol = tile.getRowCol();
 
+			//store the hover interface for the tile so that we can passthru hovers on the building
+			tileHover = tile.getGameObject().GetComponent<iHoverable>();
+
 			myReceiverTile = tile;
 			return true;
 		}
@@ -92,6 +98,38 @@ public class BuildingUnit : MonoBehaviour, iBuildingPlacer
 	public SoundType getRemovalSound()
 	{
 		return sound_removal;
+	}
+
+	#endregion
+
+	#region iHoverable interfaces
+
+	public void HoverStart(inputTracker input)
+	{
+		//Set name
+		InfoPopup.instance.setName(BuildingDisplayName.getName(myType));
+
+		InfoPopup.instance.Popup_on();
+
+		//passthru to tile
+		if(tileHover != null)
+		{
+			tileHover.HoverStart(input);
+		}
+	}
+
+	public void HoverEnd(inputTracker input)
+	{
+		InfoPopup.instance.Popup_off();
+
+		//Clear info
+		InfoPopup.instance.setName("");
+
+		//passthru to tile
+		if(tileHover != null)
+		{
+			tileHover.HoverEnd(input);
+		}
 	}
 
 	#endregion

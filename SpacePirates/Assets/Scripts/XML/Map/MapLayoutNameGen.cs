@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 public static class MapLayoutNameGen
 {
@@ -27,6 +28,19 @@ public static class MapLayoutNameGen
 			retName += whatMap.ToString();
 		}
 
+		return retName;
+	}
+
+	public static string getName(string whatMap)
+	{
+		string retName = _s_namePrefix;
+
+		//Remove non-alphanumeric characters, and spaces
+		whatMap = Regex.Replace(whatMap, "[^A-Za-z0-9]+", "");
+		whatMap.Replace(" ", "");
+
+		retName += whatMap.ToString();
+				
 		return retName;
 	}
 }

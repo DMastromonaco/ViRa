@@ -9,7 +9,15 @@ public class MapLayoutHandler : Singleton<MapLayoutHandler>
 	//////////////////////////////////////////
 
 	//Called from UI buttons from Unity Event System
-	public void ChangeMapSaveName(int whatMap)
+	public void setMapFileName(int whatMap)
+	{
+		string newLayoutName = MapLayoutNameGen.getName(whatMap);
+		
+		//change the file that the XML serializer is pointing to
+		MapLayoutSerializer.ChangeSaveName(newLayoutName);
+	}
+
+	public void setMapFileName(string whatMap)
 	{
 		string newLayoutName = MapLayoutNameGen.getName(whatMap);
 		

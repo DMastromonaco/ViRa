@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
+public class BoardTile : MonoBehaviour, iClickable, iHoverable, iBuildingReceiver
 {
 	//Does not need to be assigned in inspector
 	public GameObject GO_tile;
@@ -168,7 +168,9 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 	{
 		Debug.LogError("--- Right click  end  : " + v2_boardRowCol);
 	}
-	
+	#endregion
+
+	#region iHoverable interfaces
 	public void HoverStart(inputTracker input)
 	{
 		SetHighlight(color_highlight_on);
@@ -255,6 +257,11 @@ public class BoardTile : MonoBehaviour, iClickable, iBuildingReceiver
 		{
 			return null;
 		}
+	}
+
+	public GameObject getGameObject()
+	{
+		return this.gameObject;
 	}
 
 	public void ReceiveBuilding(iBuildingPlacer building)

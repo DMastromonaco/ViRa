@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 public static class GameLevelDataNameGen
 {
@@ -10,7 +11,9 @@ public static class GameLevelDataNameGen
 	{
 		string retName = _s_namePrefix;
 
-		//TBD : parse out spaces and other characters
+		//Remove non-alphanumeric characters, and spaces
+		fileName = Regex.Replace(fileName, "[^A-Za-z0-9]+", "");
+		fileName.Replace(" ", "");
 
 		retName += fileName;
 

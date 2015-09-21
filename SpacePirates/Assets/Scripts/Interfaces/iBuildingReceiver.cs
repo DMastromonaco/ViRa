@@ -5,6 +5,8 @@ public interface iBuildingReceiver
 {
 	iBuildingPlacer getPlacedBuilding();
 
+	GameObject getGameObject();
+
 	void ReceiveBuilding(iBuildingPlacer building);
 
 	bool RemoveBuilding();

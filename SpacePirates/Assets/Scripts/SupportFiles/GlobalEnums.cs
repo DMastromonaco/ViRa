@@ -38,7 +38,6 @@ public enum BuildingType
 	remove = 99,
 }
 
-
 public enum SoundType
 {
 	None = 0,

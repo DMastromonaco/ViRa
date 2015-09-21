@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClickableTest : MonoBehaviour, iClickable
+public class ClickableTest : MonoBehaviour, iClickable, iHoverable
 {
 	public void ClickStart(inputTracker input)
 	{
