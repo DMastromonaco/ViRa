@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class ConfigHandler : Singleton<ConfigHandler>
 {
+	//File Name
+	private static string _configFileName = "config.xml";
+
 	public C_ConfigSettings ConfigData;
 
 	public Toggle toggle_playIntro;
@@ -44,7 +47,7 @@ public class ConfigHandler : Singleton<ConfigHandler>
 	void Start () 
 	{
 		//Load from file
-		ConfigData = ConfigSerializer.DeserializeConfig();
+		ConfigData = XMLSerialization.Deserialize<C_ConfigSettings>(_configFileName);
 	}
 
 	//////////////////////////////////////////
@@ -109,19 +112,21 @@ public class ConfigHandler : Singleton<ConfigHandler>
 	//Get settings from UI, set to ConfigData, and save
 	public void SaveConfig()
 	{
+		//Get settings from UI
 		UpdateConfig();
 
-		//Save to file
-		ConfigSerializer.SerializeConfig(ConfigData);
+		//Save to XML file
+		XMLSerialization.Serialize<C_ConfigSettings>(ConfigData, _configFileName);
 	}
 
 	//Get settings from UI, set to ConfigData, and save
 	public void SaveSoundConfig()
 	{
+		//Get settings from UI
 		UpdateSoundConfig();
 
-		//Save to file
-		ConfigSerializer.SerializeConfig(ConfigData);
+		//Save to XML file
+		XMLSerialization.Serialize<C_ConfigSettings>(ConfigData, _configFileName);
 	}
 
 	//Updates from ConfigMenu

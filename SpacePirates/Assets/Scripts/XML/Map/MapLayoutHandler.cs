@@ -8,29 +8,47 @@ public class MapLayoutHandler : Singleton<MapLayoutHandler>
 
 	//////////////////////////////////////////
 
+	void Start()
+	{
+		//Set default map file
+		setMapFileName(0);
+	}
+
+	//////////////////////////////////////////
+
 	//Called from UI buttons from Unity Event System
 	public void setMapFileName(int whatMap)
 	{
-		string newLayoutName = MapLayoutNameGen.getName(whatMap);
-		
-		//change the file that the XML serializer is pointing to
-		MapLayoutSerializer.ChangeSaveName(newLayoutName);
+		//change the file that gets passed to the the XML serialization
+		setFileName(MapLayoutNameGen.getName(whatMap));
 	}
 
 	public void setMapFileName(string whatMap)
 	{
-		string newLayoutName = MapLayoutNameGen.getName(whatMap);
-		
-		//change the file that the XML serializer is pointing to
-		MapLayoutSerializer.ChangeSaveName(newLayoutName);
+		//change the file that gets passed to the the XML serialization
+		setFileName(MapLayoutNameGen.getName(whatMap));
+	}
+
+	//////////////////////////////////////////
+
+	//File Name
+	private string _fullFileNamePath = ""; //Default set from Start
+	private string _filePath = "maps/";
+	private string _fileName = ""; //Default set from Start
+	private string _fileExtension = ".xml";
+	
+	private void setFileName(string newname)
+	{
+		_fileName = newname;
+		_fullFileNamePath = _filePath + _fileName + _fileExtension;
 	}
 
 	//////////////////////////////////////////
 
 	public void LoadMapLayout()
 	{
-		//Load from file
-		MapLayout = MapLayoutSerializer.DeserializeMapLayout();
+		//Load from XML file
+		MapLayout = XMLSerialization.Deserialize<C_MapLayout>(_fullFileNamePath);
 	}
 
 	//////////////////////////////////////////
@@ -45,9 +63,11 @@ public class MapLayoutHandler : Singleton<MapLayoutHandler>
 
 		MapLayout.buildingLocations = Buildings.instance.GetBuildingLocations();
 
-		//Save to file
-		MapLayoutSerializer.SerializeMapLayout(MapLayout);
+		//Save to XML file
+		XMLSerialization.Serialize<C_MapLayout>(MapLayout, _fullFileNamePath);
 	}
+
+	//////////////////////////////////////////
 
 	public void SpawnBoard_fromLayout()
 	{
