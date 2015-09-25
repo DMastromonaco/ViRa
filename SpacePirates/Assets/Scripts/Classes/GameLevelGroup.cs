@@ -13,6 +13,15 @@ public class GameLevelGroup
 		{
 			if(!isOn)
 			{
+				GameLevelProcessor processor = GO_LevelScript.GetComponent<GameLevelProcessor>();
+				
+				if(processor)
+				{
+					//Reset internal game processing flag and time
+					//   for fresh game level start
+					processor.Reset();
+				}
+
 				GO_LevelScript.SetActive(true);
 
 				isOn = true;
@@ -30,6 +39,25 @@ public class GameLevelGroup
 				
 				isOn = false;
 			}
+		}
+	}
+
+	public void Level_Resume(float gameTime)
+	{
+		if(GO_LevelScript)
+		{
+			GameLevelProcessor processor = GO_LevelScript.GetComponent<GameLevelProcessor>();
+
+			if(processor)
+			{
+				//Set resume flag and time
+				processor.Resume(gameTime);
+			}
+
+			//and start
+			GO_LevelScript.SetActive(true);
+			
+			isOn = true;
 		}
 	}
 	

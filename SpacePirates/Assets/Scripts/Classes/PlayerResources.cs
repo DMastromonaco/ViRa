@@ -14,7 +14,7 @@ public class PlayerResources
 
 	public PlayerResources()
 	{
-		m_money = 100f;
-		m_ore = 25f;
+		m_money = 0f;
+		m_ore = 0f;
 	}
 }

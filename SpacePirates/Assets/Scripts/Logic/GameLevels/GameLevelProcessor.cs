@@ -9,23 +9,54 @@ public class GameLevelProcessor : MonoBehaviour
 
 	private int curTrigger = 0;
 
+	private bool resume = false;
+	private float resumeGameTime = 0f;
+
 	//When the game object for levels are turned on, the FoC for the level begins
 	void OnEnable()
 	{
-		//Debugging TBD : remove
-		Debug.Log("+++ starting level : " + gameLevelData.m_levelName);
+		if(!resume)
+		{
+			// START LEVEL FROM BEGINNING
 
-		//Set game time to 0
-		GameTime.instance.ResetGameTime();
+			//Debugging TBD : remove
+			Debug.Log("+++ starting level : " + gameLevelData.m_levelName);
 
-		//Unpause the game
-		TimeController.instance.Unpause();
+			//Set game time to 0
+			GameTime.instance.ResetGameTime();
 
-		//Set trigger index to start
-		curTrigger = 0;
+			//Set trigger index to start
+			curTrigger = 0;
+		}
+		else
+		{
+			// RESUME GAME IN PROGRESS
+
+			//Set game time to resume time
+			GameTime.instance.setGameTime(resumeGameTime);
+
+			//Determine the trigger we should be at based on time
+			curTrigger = 0;
+			for(int x = 0; x < gameLevelData.triggerTimes.Count; x++)
+			{
+				if(resumeGameTime > gameLevelData.triggerTimes[x])
+				{
+					//Add one for each trigger we have already passed
+					curTrigger++;
+				}
+				else
+				{
+					//If we hit a trigger that is at a future gameTime, drop out of loop
+					x = gameLevelData.triggerTimes.Count + 1;
+				}
+			}
+		}
 
 		//Start loop to check when events trigger
 		StartCoroutine(Do_CheckTriggers());
+
+		//Unpause the game time
+		TimeController.instance.Unpause();
 	}
 
 	//The level has stopped
@@ -36,6 +67,25 @@ public class GameLevelProcessor : MonoBehaviour
 		
 		//Pause the game
 		TimeController.instance.Pause();
+
+		//flag for resume when object is re-enabled
+		resume = true;
+		resumeGameTime = GameTime.instance.getGameTime();
+	}
+
+	//Reset level that was pending resume
+	public void Reset()
+	{
+		resume = false;
+		resumeGameTime = 0f;
+	}
+
+	//Resume level in progress
+	public void Resume(float gameTime)
+	{
+		//flag for resume when object is enabled
+		resume = true;
+		resumeGameTime = gameTime;
 	}
 
 	//Will check each fixed update if the game time has elapsed past a certain trigger, and process that trigger

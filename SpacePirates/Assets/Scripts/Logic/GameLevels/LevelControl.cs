@@ -17,6 +17,11 @@ public class LevelControl : Singleton<LevelControl>
 		gameLevelProc.Level_Start();
 	}
 
+	public void ResumeProcessorLevel(float resumeTime)
+	{
+		gameLevelProc.Level_Resume(resumeTime);
+	}
+
 	////////////////////////////////////////////
 
 	public void StartLevel(int lvl)

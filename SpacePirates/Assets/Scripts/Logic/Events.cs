@@ -31,6 +31,10 @@ public class Events : Singleton<Events>
 		case GameTriggerType.spawnEnemy:
 
 			break;
+
+		case GameTriggerType.resource_setAll:
+			Resources_SetAll(args);
+			break;
 		}
 	}
 
@@ -81,4 +85,15 @@ public class Events : Singleton<Events>
 
 
 
+
+	// =========== RESOURCES ===========
+	private void Resources_SetAll(string[] args)
+	{
+		int money = 0;
+		int.TryParse(args[0], out money);
+		int ore = 0;
+		int.TryParse(args[1], out ore);
+
+		Resources.instance.setAll(money, ore);
+	}
 }

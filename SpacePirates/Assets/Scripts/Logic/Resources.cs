@@ -31,6 +31,15 @@ public class Resources : Singleton<Resources>
 		return (int)Resources.instance.playerRes.m_money >= cost;
 	}
 
+	// == All
+
+	public void setAll(int money, int ore)
+	{
+		Resources.instance.playerRes.m_money = money;
+		Resources.instance.playerRes.m_ore = ore;
+		UpdateDisplay();
+	}
+
 	// == Money
 
 	public bool subMoney(int amt)

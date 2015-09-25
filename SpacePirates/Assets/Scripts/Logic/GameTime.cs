@@ -36,6 +36,12 @@ public class GameTime : TimedMonoBehaviour
 		return elapsedGameTime;
 	}
 
+	//Sets the elapsed GameTime (of this level)
+	public void setGameTime(float gameTime)
+	{
+		elapsedGameTime = gameTime;
+	}
+
 	//Starts a new level by setting elasped time back to 0
 	public void ResetGameTime()
 	{

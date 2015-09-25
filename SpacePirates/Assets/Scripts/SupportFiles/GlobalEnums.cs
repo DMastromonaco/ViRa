@@ -58,6 +58,8 @@ public enum GameTriggerType
 	spawnMap_buildings = 16,
 
 	spawnEnemy = 20,
+
+	resource_setAll = 30,
 }
 
 
