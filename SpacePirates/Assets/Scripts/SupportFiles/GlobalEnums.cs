@@ -38,6 +38,13 @@ public enum BuildingType
 	remove = 99,
 }
 
+public enum TileAttributeType
+{
+	none = 0,
+
+	enemySpawn = 10,
+}
+
 public enum SoundType
 {
 	None = 0,

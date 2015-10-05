@@ -12417,6 +12417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapLayout:
     tileLocations: []
+    tileAttributes: []
     buildingTypeIDs: 
     buildingLocations: []
 --- !u!1 &996930904

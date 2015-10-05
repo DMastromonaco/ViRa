@@ -11,6 +11,10 @@ public class C_MapLayout
 	[XmlArrayItem("rowCol")]
 	public List<Vector2> tileLocations = new List<Vector2>();
 
+	[XmlArray("TileAttributes")]
+	[XmlArrayItem("attribute")]
+	public List<string> tileAttributes = new List<string>();
+
 	[XmlArray("Buildings")]
 	[XmlArrayItem("typeID")]
 	public List<int> buildingTypeIDs = new List<int>();
@@ -22,6 +26,7 @@ public class C_MapLayout
 	public C_MapLayout()
 	{
 		tileLocations = new List<Vector2>();
+		tileAttributes = new List<string>();
 		buildingTypeIDs = new List<int>();
 		buildingLocations = new List<Vector2>();
 	}

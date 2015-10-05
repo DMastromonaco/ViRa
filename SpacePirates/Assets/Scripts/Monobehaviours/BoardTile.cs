@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -31,11 +32,14 @@ public class BoardTile : MonoBehaviour, iClickable, iHoverable, iBuildingReceive
 	public Color color_highlight_off;
 	public Color color_highlight_on;
 
-	// Game Objects to locate Neighbors
+	//Inspector, Game Objects to locate Neighbors
 	public List<GameObject> locs_neighbors = new List<GameObject>();
 
-	//Neighbors
+	//Programmatic, Neighbors
 	public List<BoardTile> tileNeighbors = new List<BoardTile>();
+
+	// Attributes, assigned during runtime or map creation
+	public List<TileAttribute> attributes;
 
 	//Private, unused
 	private inputTracker _myInput;
@@ -62,7 +66,89 @@ public class BoardTile : MonoBehaviour, iClickable, iHoverable, iBuildingReceive
 		FixNeighborLocators(v2_neighborSpacing);
 	}
 
+	////////////////////////////////////////////
+	/// Attributes
 
+	public bool hasAttributes()
+	{
+		return attributes.Count != 0;
+	}
+
+	public List<string> getAllAttributes()
+	{
+		List<string> retVals = new List<string>();
+
+		//TBD : Returns an array of the CSS_Parameters from each attribute TileAttribute.getParameters() (with tileXY, type, then CSS)
+		// This should also include the XY loc of this tile? So it can be saved to C_MapLayout.xml and later reloaded to correct tile
+
+		string tempCSS = "";
+
+		foreach(TileAttribute attrib in attributes)
+		{
+			if(attrib) //prevent nulls from attribute removal
+			{
+				tempCSS = "";
+
+				//Add this tile's row/col to each attribute so it can be replaced on this tile
+				tempCSS += (int)getRowCol().x + ",";
+				tempCSS += (int)getRowCol().y + ",";
+
+				//Add the attribute type int
+				tempCSS += ((int)attrib.getType()).ToString() + ",";
+
+				//Finally add the parameters of this attribute
+				tempCSS += attrib.getParameters();
+
+				//And add to return list
+				retVals.Add(tempCSS);
+			}
+		}
+
+		return retVals;
+		//These will be Added to the List<string> in C_MapLayout by the serializer, from the Board.cs
+	}
+
+	//Adds scripts by Type, and then sets/initializes their parameters with TileAttribute.setParameters()
+	public void addAttribute(string[] args)
+	{
+		//args[0] and [1] are the tile loc
+
+		//args[2] is the script type
+		int scriptType = 0;
+		if(int.TryParse(args[2], out scriptType))
+		{
+			TileAttribute attrib = addAttributeScript(scriptType);
+
+			//If the script was added, set parameters
+			if(attrib)
+			{
+				attrib.setParameters(args);
+
+				attributes.Add(attrib);
+
+				//TBD : Inform Board.cs of this attribute so it can track them
+				// TBD : So that we can find attributes later more easily, like EnemySpawns or OrePatches without having to loop all tiles, etc
+			}
+		}
+	}
+
+	private TileAttribute addAttributeScript(int attType)
+	{
+		TileAttribute retAttrib = null;
+
+		if(Enum.IsDefined(typeof(TileAttributeType), attType))
+		{
+			switch((TileAttributeType)attType)
+			{
+			case TileAttributeType.enemySpawn:
+				retAttrib = (TileAttribute)this.gameObject.AddComponent<EnemySpawn>();
+				break;
+
+			}
+		}
+
+		return retAttrib;
+	}
 
 	#endregion
 	

@@ -2362,6 +2362,9 @@
       <y>15</y>
     </rowCol>
   </TileLocations>
+  <TileAttributes>
+    <attribute>24,1,10,1,</attribute>
+  </TileAttributes>
   <Buildings>
     <typeID>10</typeID>
     <typeID>11</typeID>

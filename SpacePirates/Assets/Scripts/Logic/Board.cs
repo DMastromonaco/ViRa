@@ -270,4 +270,78 @@ public class Board : Singleton<Board>
 
 		return _tempTile;
 	}
+
+	public BoardTile getBoardTileAtLoc(Vector2 rowCol)
+	{
+		BoardTile _tempTile = null;
+		
+		//Loop all tiles and find the one with the matching location
+		for(int j = 0; j < boardTiles.Count; j++)
+		{
+			if(((BoardTile)boardTiles[j]).getRowCol() == rowCol)
+			{
+				//Found the matching rowCol, assign and drop out
+				_tempTile = (BoardTile)boardTiles[j];
+				
+				j = boardTiles.Count + 1;
+			}
+		}
+		
+		return _tempTile;
+	}
+
+	///////////////////////////////////
+	/// Attribute handling
+
+	public List<string> GetTileAttributes()
+	{
+		List<string> attList = new List<string>();
+		List<string> tempTileList = new List<string>();
+		
+		//Build final list out of each attribute from each tile
+		for(int j = 0; j < boardTiles.Count; j++)
+		{
+			if(boardTiles[j].hasAttributes())
+			{
+				tempTileList = boardTiles[j].getAllAttributes();
+				foreach(string attCSS in tempTileList)
+				{
+					attList.Add(attCSS);
+				}
+			}
+		}
+		
+		return attList;
+	}
+
+	public void AddTileAttributes(List<string> allAttributes)
+	{
+		int tempX, tempY;
+		Vector2 tileLoc;
+		string[] args;
+		BoardTile tile;
+		
+		//Accepts the list of CSS_Parameters and types, and passes the parameters to the correct BoardTile
+		foreach(string cssAttribute in allAttributes)
+		{
+			args = cssAttribute.Split(',');
+
+			//Determine which tile from the first 2 elements
+			if(int.TryParse(args[0], out tempX))
+			{
+				if(int.TryParse(args[1], out tempY))
+				{
+					tileLoc = new Vector2(tempX, tempY);
+
+					//Get correct BoardTile and add the attributes
+					tile = null;
+					tile = getBoardTileAtLoc(tileLoc);
+					if(tile)
+					{
+						tile.addAttribute(args);
+					}
+				}
+			}
+		}
+	}
 }

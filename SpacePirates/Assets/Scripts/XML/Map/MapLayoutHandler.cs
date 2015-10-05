@@ -63,6 +63,8 @@ public class MapLayoutHandler : Singleton<MapLayoutHandler>
 
 		MapLayout.buildingLocations = Buildings.instance.GetBuildingLocations();
 
+		MapLayout.tileAttributes = Board.instance.GetTileAttributes();
+
 		//Save to XML file
 		XMLSerialization.Serialize<C_MapLayout>(MapLayout, _fullFileNamePath);
 	}
@@ -76,6 +78,9 @@ public class MapLayoutHandler : Singleton<MapLayoutHandler>
 
 		//Spawn tiles from the layout
 		Board.instance.Spawn (MapLayout.tileLocations);
+
+		//Add attributes to the tiles
+		Board.instance.AddTileAttributes (MapLayout.tileAttributes);
 	}
 
 	public void SpawnBuildings_fromLayout()
